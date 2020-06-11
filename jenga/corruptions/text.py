@@ -3,6 +3,8 @@ import random
 from jenga.basis import DataCorruption
 
 
+# Mimics cases where text is processed with the wrong encoding
+# (e.g., when crawled from the web)
 class BrokenCharacters(DataCorruption):
 
     def __init__(self, column, fraction):
@@ -28,7 +30,7 @@ class BrokenCharacters(DataCorruption):
             if random.random() < self.fraction:
                 column_value = row[self.column]
                 for character, replacement in replacements.items():
-                    column_value = column_value.replace(character, replacement)
+                    column_value = str(column_value).replace(character, replacement)
                 corrupted_data.at[index, self.column] = column_value
 
         return corrupted_data

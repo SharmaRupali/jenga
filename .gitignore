@@ -6,4 +6,5 @@ env/
 play.py
 imputer_model*
 *.jsonpickle
-
+*.pkl
+random_validation_*.csv

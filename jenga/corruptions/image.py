@@ -1,27 +1,86 @@
-import numpy as np
-import random
-import cv2
+import imgaug.augmenters as iaa
 
 from jenga.basis import DataCorruption
+import numpy as np
+import random
 
 
-class GaussianNoise(DataCorruption):
+# Base class for image corruptions, for which we rely on the augmentor library
+# https://github.com/mdbloice/Augmentor
+class ImageCorruption(DataCorruption):
 
-    def __init__(self, fraction, sigma=25):
+    def __init__(self, fraction, corruptions):
         self.fraction = fraction
-        self.sigma = sigma
+        self.corruptions = corruptions
         DataCorruption.__init__(self)
 
     def transform(self, data):
-        noisy_images = data.copy()
+        corrupted_images = data.copy()
 
-        for index in range(0, len(noisy_images)):
+        seq = iaa.Sequential(self.corruptions)
+
+        for index in range(0, len(corrupted_images)):
             if random.random() < self.fraction:
-                raw_image = noisy_images[index]
-                gaussian = np.random.normal(0, self.sigma, raw_image.shape)
-                noisy_image = raw_image + gaussian
-                cv2.normalize(noisy_image, noisy_image, 0, 255, cv2.NORM_MINMAX, dtype=-1)
-                noisy_image = noisy_image.astype(np.uint8)
-                noisy_images[index] = noisy_image
+                img = corrupted_images[index]
 
-        return noisy_images
+                # ugly, superslow hack for too small images from mnist and fashion mnist...
+                # we need to have at least 32x32 pixel images for the corruptions to work...
+                if img.shape[0] == 28:
+                    wrapper = np.zeros((32, 32), dtype=img.dtype)
+                    wrapper[2:30, 2:30] = img
+
+                    corr = seq(images=wrapper)
+
+                    corrupted_images[index] = corr[2:30, 2:30]
+                else:
+                    seq(images=corrupted_images[index])
+
+        return corrupted_images
+
+
+class GaussianNoiseCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.GaussianNoise(severity=severity)])
+
+
+class GlassBlurCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.GlassBlur(severity=severity)])
+
+
+class SnowCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.Snow(severity=severity)])
+
+
+class MotionBlurCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.MotionBlur(severity=severity)])
+
+
+class DefocusBlurCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.DefocusBlur(severity=severity)])
+
+
+class FogCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.Fog(severity=severity)])
+
+
+class ContrastCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.Contrast(severity=severity)])
+
+
+class BrightnessCorruption(ImageCorruption):
+
+    def __init__(self, fraction, severity):
+        ImageCorruption.__init__(self, fraction, [iaa.imgcorruptlike.Brightness(severity=severity)])

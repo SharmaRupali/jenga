@@ -11,6 +11,7 @@ from sklearn.pipeline import Pipeline
 from jenga.basis import BinaryClassificationTask
 
 
+# Predict whether a video game review is considered helpful or not
 class VideogameReviewsTask(BinaryClassificationTask):
 
     def __init__(self, seed):
@@ -18,9 +19,26 @@ class VideogameReviewsTask(BinaryClassificationTask):
                    'product_title', 'product_category', 'star_rating', 'helpful_votes',
                    'total_votes', 'vine', 'verified_purchase', 'review_headline', 'review_body',
                    'review_date']
+        dtypes = {
+            'marketplace': str,
+            'customer_id': str,
+            'review_id': str,
+            'product_id': str,
+            'product_parent': str,
+            'product_title': str,
+            'product_category': str,
+            'star_rating': np.int32,
+            'helpful_votes': np.int32,
+            'total_votes': np.int32,
+            'vine': str,
+            'verified_purchase': str,
+            'review_headline': str,
+            'review_body': str,
+            'review_date': str
+        }
 
-        raw_data = pd.read_csv('data/reviews/videogames.tsv', sep='\t', names=columns)
-        # We drop this column, otherwhise the prediction task is to easy
+        raw_data = pd.read_csv('data/reviews/videogames.tsv', sep='\t', names=columns, dtype=dtypes)
+        # We drop this column, the prediction task is to easy otherwise
         raw_data = raw_data.drop(['total_votes'], axis=1)
 
         raw_data[['product_title', 'review_headline', 'review_body']] = raw_data[
