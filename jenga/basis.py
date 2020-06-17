@@ -1,9 +1,76 @@
 import numpy as np
 import tensorflow as tf
 import random
+import pandas as pd
+import openml
 
 from abc import ABC, abstractmethod
 from sklearn.metrics import roc_auc_score
+
+from sklearn.model_selection import train_test_split
+
+# class for loading the datasets, and getting the training and test sets
+class Dataset:
+
+
+    def __init__(self, seed, dataset_name):
+        
+        ## fix random seeds for reproducibility
+        random.seed(seed)
+        np.random.seed(seed)
+        
+        
+        data = openml.datasets.get_dataset(dataset_name)
+        
+        ## summary
+        print(f"Dataset '{data.name}', target: '{data.default_target_attribute}'")
+        print(data.description[:500])
+        
+        ## load the data
+        # X: An array/dataframe where each row represents one example with the corresponding feature values
+        # y: the classes for each example
+        # categorical_indicator - an array that indicates which feature is categorical
+        # attribute_names - the names of the features for the examples(X) and target feature (y)
+        X, y, categorical_indicator, self.attribute_names = data.get_data(
+            dataset_format='dataframe',
+            target=data.default_target_attribute
+        )
+        
+        ## combine the attribute names with the information of them being categorical or not
+        # will be used further in order not to manually distinguish between the numerical and categorical features
+        self.attribute_types = pd.DataFrame(self.attribute_names, columns=["attribute_names"])
+        self.attribute_types['categorical_indicator'] = categorical_indicator
+        print("\nAttribute types: ")
+        display(self.attribute_types)
+
+        self.all_data = X.copy(deep=True)
+        self.all_data['class'] = y
+        
+    
+    def get_train_test_data(self):
+	
+        ''' Get train and test data along with train and test labels.
+
+        Params:
+        all_data: dataframe: combined data and labels
+        attribute_names: list: names of attributes from the data
+
+        Returns:
+        train_data: dataframe:
+        train_labels: list
+        test_data: dataframe
+        test_labels: list
+        '''
+
+        train_split, test_split = train_test_split(self.all_data, test_size=0.2)
+
+        train_data = train_split[self.attribute_names]
+        train_labels = np.array(train_split['class'])
+
+        test_data = test_split[self.attribute_names]
+        test_labels = np.array(test_split['class'])
+
+        return train_data, train_labels, test_data, test_labels
 
 
 # Base class for binary classification tasks, including training data, test data, a baseline model and scoring
