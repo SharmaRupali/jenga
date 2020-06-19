@@ -6,6 +6,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
 from pyod.models.knn import KNN
+from pyod.models.iforest import IForest
 
 
 class OutlierDetection:
@@ -53,6 +54,25 @@ class PyODKNN(OutlierDetection):
         x = feature_transformation.transform(df_train).toarray()
         
         model = KNN()
+        model.fit(x)
+        
+        xx = feature_transformation.transform(df_outliers).toarray()
+
+        df_outliers["outlier"] = model.predict(xx) ## 0: inlier, 1: outlier
+        
+        return df_outliers
+		
+		
+		
+class PyODIsolationForest(OutlierDetection):
+    
+    def fit_transform(self, df_train, df_corrupted):
+        df_outliers = df_corrupted.copy()
+        
+        feature_transformation = self.feature_transform.fit(df_train)
+        x = feature_transformation.transform(df_train).toarray()
+        
+        model = IForest(contamination=0.25)
         model.fit(x)
         
         xx = feature_transformation.transform(df_outliers).toarray()
