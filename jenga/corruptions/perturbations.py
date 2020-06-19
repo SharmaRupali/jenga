@@ -2,13 +2,13 @@ import random
 import numpy as np
 
 from jenga.corruptions.generic import MissingValues, SwappedValues
-from jenga.corruptions.numerical import Scaling
+from jenga.corruptions.numerical import Scaling, GaussianNoise
 
 
 DEFAULT_CORRUPTIONS = {
     'missing': [MissingValues],
     'categorical': [SwappedValues],
-    'numeric': [Scaling]
+    'numeric': [Scaling, GaussianNoise]
 }
 
 DEFAULT_FRACTIONS = [0.25, 0.5, 0.75]
@@ -50,7 +50,8 @@ class Perturbation:
         rand_fraction = random.choice(self.fractions)
         if perturb_type is 'numeric':
             col_to_perturb = random.choice(self.numerical_columms)
-            return Scaling(col_to_perturb, rand_fraction), [col_to_perturb]
+            perturb_method = random.choice(self.corruptions[perturb_type])
+            return perturb_method(col_to_perturb, rand_fraction), [col_to_perturb]
         elif perturb_type is 'categorical':
             col_to_perturb = random.sample(self.categorical_columns, 2)
             return SwappedValues(col_to_perturb[0], col_to_perturb[1], rand_fraction), col_to_perturb
