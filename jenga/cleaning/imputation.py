@@ -95,7 +95,7 @@ class DatawigImputation(Imputation):
             model.fit(df_train)
 
             df_imputed = model.predict(df_imputed)
-            #df_cleaned.loc[df_cleaned[col].isnull(), col] = df_cleaned[col + '_imputed']
-            #df_cleaned = df_cleaned[df_corrupted.columns]
+            df_imputed[col].fillna(df_imputed[col + '_imputed'], inplace=True)
+            df_imputed = df_imputed[df_corrupted.columns]
 
         return df_imputed
