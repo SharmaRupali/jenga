@@ -17,14 +17,14 @@ DEFAULT_FRACTIONS = [0.25, 0.5, 0.75]
 class Perturbation:
     
     
-    def __init__(self, categorical_columns, numerical_columms, corruptions=DEFAULT_CORRUPTIONS, fractions=DEFAULT_FRACTIONS):
+    def __init__(self, categorical_columns, numerical_columns, corruptions=DEFAULT_CORRUPTIONS, fractions=DEFAULT_FRACTIONS):
         self.categorical_columns = categorical_columns
-        self.numerical_columms = numerical_columms
+        self.numerical_columns = numerical_columns
         self.corruptions = corruptions
         self.fractions = fractions
         
     
-    def random_perturbation(self, categorical_columns, numerical_columms):
+    def random_perturbation(self, categorical_columns, numerical_columns):
         ''' Get a random perturbation for a column, chosen from corruptions: missing, numeric, or categorical
     
         Params:
@@ -37,11 +37,11 @@ class Perturbation:
         '''
         
         ## get a random perturbation type
-        if len(self.categorical_columns) > 0 and len(self.numerical_columms) > 0:
+        if len(self.categorical_columns) > 0 and len(self.numerical_columns) > 0:
             perturb_type = random.choice(list(self.corruptions.keys()))
         elif len(self.categorical_columns) > 0:
             perturb_type = 'categorical'
-        elif len(self.numerical_columms) > 0:
+        elif len(self.numerical_columns) > 0:
             perturb_type = 'numeric'
 
 
@@ -49,7 +49,7 @@ class Perturbation:
         ## update perturbation to random selection when more perturbation types are added to corruptions
         rand_fraction = random.choice(self.fractions)
         if perturb_type is 'numeric':
-            col_to_perturb = random.choice(self.numerical_columms)
+            col_to_perturb = random.choice(self.numerical_columns)
             perturb_method = random.choice(self.corruptions[perturb_type])
             return perturb_method(col_to_perturb, rand_fraction), [col_to_perturb]
         elif perturb_type is 'categorical':
@@ -57,7 +57,7 @@ class Perturbation:
             return SwappedValues(col_to_perturb[0], col_to_perturb[1], rand_fraction), col_to_perturb
         elif perturb_type is 'missing':
             missigness = random.choice(['MCAR', 'MAR', 'MNAR'])
-            col_to_perturb = random.choice(self.numerical_columms + self.categorical_columns)
+            col_to_perturb = random.choice(self.numerical_columns + self.categorical_columns)
             na_value = np.nan
             return MissingValues(col_to_perturb, rand_fraction, na_value, missigness), [col_to_perturb]
         
@@ -67,11 +67,12 @@ class Perturbation:
     
         perturbations = []
         cols_perturbed = []
-
+        
+        print("Applying perturbations...")
+        
         for _ in range(num_perturbations):
-            perturbation, col_perturbed = self.random_perturbation(self.categorical_columns, self.numerical_columms)
-            print(perturbation)
-            print(col_perturbed)
+            perturbation, col_perturbed = self.random_perturbation(self.categorical_columns, self.numerical_columns)
+            print(f"{perturbation} on column {col_perturbed}")
 
             ## storing for conservation
             # maybe we want to apply the same set of perturbations again: useful for the CleanML scenarios

@@ -11,13 +11,13 @@ from pyod.models.iforest import IForest
 
 class OutlierDetection:
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columms):
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
         
         self.df_train = df_train
         self.df_corrupted = df_corrupted
         
         self.categorical_columns = categorical_columns
-        self.numerical_columms = numerical_columms
+        self.numerical_columns = numerical_columns
         
         
         # preprocessing pipeline for numerical columns
@@ -35,7 +35,7 @@ class OutlierDetection:
         # preprocessor
         self.feature_transform = ColumnTransformer(transformers=[
             ('categorical_features', transformer_categorical, self.categorical_columns),
-            ('numerical_features', transformer_numeric, self.numerical_columms)
+            ('numerical_features', transformer_numeric, self.numerical_columns)
         ], sparse_threshold=1.0)
         
         

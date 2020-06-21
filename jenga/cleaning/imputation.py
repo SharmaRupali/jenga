@@ -8,12 +8,12 @@ import datawig
 
 class Imputation:
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columms):
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
         self.df_train = df_train
         self.df_corrupted = df_corrupted
         
         self.categorical_columns = categorical_columns
-        self.numerical_columms = numerical_columms
+        self.numerical_columns = numerical_columns
         
     
     @abstractmethod
@@ -32,16 +32,16 @@ class Imputation:
 	
 class MeanModeImputation(Imputation):
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columms):
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
         self.means = {}
         self.modes = {}
     
-        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columms)
+        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
     def fit(self, df_train):
         for col in df_train.columns:
-            if col in self.numerical_columms:
+            if col in self.numerical_columns:
                 # mean imputer
                 mean = np.mean(df_train[col])
                 self.means[col] = mean
@@ -55,7 +55,7 @@ class MeanModeImputation(Imputation):
         df_imputed = df_corrupted.copy()
         
         for col in df_corrupted.columns:
-            if col in self.numerical_columms:
+            if col in self.numerical_columns:
                 # mean imputer
                 df_imputed[col].fillna(self.means[col], inplace=True)
             elif col in self.categorical_columns:
@@ -68,10 +68,10 @@ class MeanModeImputation(Imputation):
 		
 class DatawigImputation(Imputation):
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columms):
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
         self.model = None
         
-        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columms)
+        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
     def fit_transform(self, df_train, df_corrupted):
@@ -86,7 +86,7 @@ class DatawigImputation(Imputation):
                 df_corrupted[col] = df_corrupted[col].astype(str)
 
 
-        for col in self.categorical_columns + self.numerical_columms:
+        for col in self.categorical_columns + self.numerical_columns:
             output_column = col
             input_columns = list(set(df_train.columns) - set([output_column]))
 
