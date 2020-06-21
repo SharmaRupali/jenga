@@ -12,7 +12,6 @@ from sklearn.model_selection import train_test_split
 # class for loading the datasets, and getting the training and test sets
 class Dataset:
 
-
     def __init__(self, seed, dataset_name):
         
         ## fix random seeds for reproducibility
@@ -46,9 +45,13 @@ class Dataset:
         self.all_data = X.copy(deep=True)
         self.all_data['class'] = y
         
+        ## categorical and numerical columns
+        self.categorical_columns = list(self.attribute_types['attribute_names'][self.attribute_types['categorical_indicator'] == True])
+        self.numerical_columns = list(self.attribute_types['attribute_names'][self.attribute_types['categorical_indicator'] == False])
+        
     
     def get_train_test_data(self):
-	
+        
         ''' Get train and test data along with train and test labels.
 
         Params:
@@ -71,6 +74,7 @@ class Dataset:
         test_labels = np.array(test_split['class'])
 
         return train_data, train_labels, test_data, test_labels
+
 
 
 # Base class for binary classification tasks, including training data, test data, a baseline model and scoring
