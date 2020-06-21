@@ -17,19 +17,23 @@ class Imputation:
         
     
     @abstractmethod
-    def fit(self, df_train):
-        pass
-    
-    @abstractmethod
-    def transform(self, df_corrupted):
-        pass
-    
-    @abstractmethod
     def fit_transform(self, df_train, df_corrupted):
         pass
-		
-	
-	
+
+    
+    
+class NoImputation(Imputation):    
+    
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):        
+        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
+    
+    
+    def fit_transform(self, df_train, df_corrupted):
+        df_imputed = df_corrupted.copy()
+        return df_imputed
+    
+    
+    
 class MeanModeImputation(Imputation):
     
     def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
@@ -39,7 +43,9 @@ class MeanModeImputation(Imputation):
         Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
-    def fit(self, df_train):
+    def fit_transform(self, df_train, df_corrupted):
+        df_imputed = df_corrupted.copy()
+        
         for col in df_train.columns:
             if col in self.numerical_columns:
                 # mean imputer
@@ -51,9 +57,6 @@ class MeanModeImputation(Imputation):
                 self.modes[col] = mode
                 
                 
-    def transform(self, df_corrupted):
-        df_imputed = df_corrupted.copy()
-        
         for col in df_corrupted.columns:
             if col in self.numerical_columns:
                 # mean imputer
@@ -63,14 +66,12 @@ class MeanModeImputation(Imputation):
                 df_imputed[col].fillna(self.modes[col], inplace=True)
                 
         return df_imputed
-		
-		
-		
+
+    
+
 class DatawigImputation(Imputation):
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
-        self.model = None
-        
+    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):        
         Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
