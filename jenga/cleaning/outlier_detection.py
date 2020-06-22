@@ -51,6 +51,10 @@ class NoOutlierDetection(OutlierDetection):
         df_outliers = df_corrupted.copy()
         
         return df_outliers
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
 
 
         
@@ -70,6 +74,10 @@ class PyODKNN(OutlierDetection):
         df_outliers["outlier"] = model.predict(xx) ## 0: inlier, 1: outlier
         
         return df_outliers
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
 
     
     
@@ -89,3 +97,7 @@ class PyODIsolationForest(OutlierDetection):
         df_outliers["outlier"] = model.predict(xx) ## 0: inlier, 1: outlier
         
         return df_outliers
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
