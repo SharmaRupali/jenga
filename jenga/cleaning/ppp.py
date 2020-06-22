@@ -12,17 +12,18 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, seed, dataset, categorical_columns, numerical_columns, learner, param_grid, pipeline=None):
+    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, pipeline=None):
         
-        self.learner = learner
-        self.param_grid = param_grid
+        self.train_data = train_data
+        self.train_labels = train_labels
+        self.test_data = test_data
+        self.test_labels = test_labels
         
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
         
-        
-        ## get training and test sets
-        self.train_data, self.train_labels, self.test_data, self.test_labels = dataset.get_train_test_data()
+        self.learner = learner
+        self.param_grid = param_grid
         
         
         ## define preprocessing pipeline if not given
