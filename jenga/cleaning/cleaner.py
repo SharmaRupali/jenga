@@ -16,9 +16,7 @@ class Cleaner:
         
     
     def apply_cleaner(self, df_train, df_corrupted, categorical_columns, numerical_columns):
-        df_cleaned = self.outlier_detection(df_train, df_corrupted, 
-                                            categorical_columns, 
-                                            numerical_columns).fit_transform(df_train, df_corrupted)
+        df_cleaned = self.outlier_detection(df_train, df_corrupted)
         
         # do something for fixing/removing the outliers
         if 'outlier' in df_cleaned.columns:
@@ -26,8 +24,6 @@ class Cleaner:
             df_cleaned = df_cleaned.drop('outlier', axis=1)
             
         # impute
-        df_cleaned = self.imputation(df_train, df_cleaned, 
-                                     categorical_columns, 
-                                     numerical_columns).fit_transform(df_train, df_corrupted)
+        df_cleaned = self.imputation(df_train, df_cleaned)
         
         return df_cleaned
