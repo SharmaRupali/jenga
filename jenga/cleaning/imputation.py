@@ -33,6 +33,10 @@ class NoImputation(Imputation):
         return df_imputed
     
     
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
+    
+    
     
 class MeanModeImputation(Imputation):
     
@@ -66,6 +70,10 @@ class MeanModeImputation(Imputation):
                 df_imputed[col].fillna(self.modes[col], inplace=True)
                 
         return df_imputed
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
 
     
 
@@ -82,9 +90,9 @@ class DatawigImputation(Imputation):
             if pd.api.types.is_categorical_dtype(df_train[col]):
                 df_train[col] = df_train[col].astype(str)
 
-        for col in df_corrupted.columns:
-            if pd.api.types.is_categorical_dtype(df_corrupted[col]):
-                df_corrupted[col] = df_corrupted[col].astype(str)
+        for col in df_imputed.columns:
+            if pd.api.types.is_categorical_dtype(df_imputed[col]):
+                df_imputed[col] = df_imputed[col].astype(str)
 
 
         for col in self.categorical_columns + self.numerical_columns:
@@ -100,3 +108,7 @@ class DatawigImputation(Imputation):
             df_imputed = df_imputed[df_corrupted.columns]
 
         return df_imputed
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
