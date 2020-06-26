@@ -12,7 +12,7 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, pipeline=None):
+    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, corruptions, pipeline=None):
         
         self.train_data = train_data
         self.train_labels = train_labels
@@ -68,15 +68,15 @@ class PipelinePerformancePrediction:
                           self.param_grid)
         
         
-    def get_corrupted(self, df):
+    def get_corrupted(self, df, corruptions):
         
         print(f"Generating corrupted training data on {len(df)} rows...")
         
         # corruption perturbations to apply
-        corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns)
-        df_corrupted, perturbations, cols_perturbed = corr_perturbations.apply_perturbation(df, 5)
+        corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns, corruptions)
+        df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions)
         
-        return df_corrupted, perturbations, cols_perturbed
+        return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
         
         
     def fit_ppp(self, df):
