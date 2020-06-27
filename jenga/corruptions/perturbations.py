@@ -1,5 +1,6 @@
 import random
 import numpy as np
+from collections import defaultdict
 
 from jenga.corruptions.generic import MissingValues, SwappedValues
 from jenga.corruptions.numerical import Scaling, GaussianNoise
@@ -90,16 +91,16 @@ class Perturbation:
         perturbations = []
         cols_perturbed = []
 
-        summary_col_corrupt = {}
+        summary_col_corrupt = defaultdict(list)
 
         
         print("Applying perturbations...")
         
         for corruption in corruptions:
             perturbation, col_perturbed = self.random_perturbation(corruption)
-            print(f"{perturbation} on column {col_perturbed}")
+            print(f"{perturbation}")
 
-            summary_col_corrupt[tuple(col_perturbed)] = perturbation ## saving results for returning individuals too
+            summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
 
             ## storing for conservation
             # maybe we want to apply the same set of perturbations again: useful for the CleanML scenarios
