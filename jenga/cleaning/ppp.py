@@ -12,7 +12,7 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, corruptions, pipeline=None):
+    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, corruptions):
         
         self.train_data = train_data
         self.train_labels = train_labels
@@ -27,32 +27,32 @@ class PipelinePerformancePrediction:
         
         
         ## define preprocessing pipeline if not given
-        if pipeline == None:
-            # preprocessing pipeline for numerical columns
-            transformer_numeric = Pipeline([
-                ('imputer', SimpleImputer(strategy='constant', fill_value=0)),
-                ('standard_scale', StandardScaler())
-            ])
+        # if pipeline == None:
+        # preprocessing pipeline for numerical columns
+        transformer_numeric = Pipeline([
+            ('imputer', SimpleImputer(strategy='constant', fill_value=0)),
+            ('standard_scale', StandardScaler())
+        ])
 
-            # preprocessing pipeline for categorical columns
-            transformer_categorical = Pipeline([
-                ('imputer', SimpleImputer(strategy='constant', fill_value='__NA__')),
-                ('one_hot_encode', OneHotEncoder(handle_unknown='ignore'))
-            ])
+        # preprocessing pipeline for categorical columns
+        transformer_categorical = Pipeline([
+            ('imputer', SimpleImputer(strategy='constant', fill_value='__NA__')),
+            ('one_hot_encode', OneHotEncoder(handle_unknown='ignore'))
+        ])
 
-            # preprocessor
-            feature_transform = ColumnTransformer(transformers=[
-                ('categorical_features', transformer_categorical, self.categorical_columns),
-                ('numerical_features', transformer_numeric, self.numerical_columns)
-            ])
+        # preprocessor
+        feature_transform = ColumnTransformer(transformers=[
+            ('categorical_features', transformer_categorical, self.categorical_columns),
+            ('numerical_features', transformer_numeric, self.numerical_columns)
+        ])
 
-            ## prediction pipeline: append classifier (learner) to the preprocessing pipeline
-            self.pipeline = Pipeline([
-                ('features', feature_transform),
-                ('learner', self.learner)
-            ])
-        else:
-            self.pipeline = pipeline
+        ## prediction pipeline: append classifier (learner) to the preprocessing pipeline
+        self.pipeline = Pipeline([
+            ('features', feature_transform),
+            ('learner', self.learner)
+        ])
+        # else:
+        #     self.pipeline = pipeline
             
         
         ## get model components
