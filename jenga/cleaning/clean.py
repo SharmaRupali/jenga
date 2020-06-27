@@ -6,18 +6,6 @@ from jenga.cleaning.outlier_detection import NoOutlierDetection, PyODKNN, PyODIs
 from jenga.cleaning.imputation import NoImputation, MeanModeImputation, DatawigImputation
 
 
-DEFAULT_CLEANERS = [
-    (NoOutlierDetection, NoImputation),
-    (NoOutlierDetection, MeanModeImputation),
-    (NoOutlierDetection, DatawigImputation),
-    (PyODKNN, NoImputation),
-    (PyODKNN, MeanModeImputation),
-    (PyODKNN, DatawigImputation),
-    (PyODIsolationForest, NoImputation),
-    (PyODIsolationForest, MeanModeImputation),
-    (PyODIsolationForest, DatawigImputation)
-]
-
 
 class Clean:
     
@@ -28,7 +16,7 @@ class Clean:
                  numerical_columns,
                  ppp,
                  ppp_model,
-                 cleaners=DEFAULT_CLEANERS):
+                 cleaners):
 
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
@@ -63,14 +51,20 @@ class Clean:
         for cleaner in self.cleaners:
             df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
             cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
-            print(f"PPP score with cleaning: {cleaner}: {cleaner_score}")
+            print(f"Outlier detection method: {cleaner.outlier_detection}")
+            print(f"Imputation method: {cleaner.imputation}")
+            print(f"PPP score with cleaning: {cleaner}: {cleaner_score} \n")
             cleaner_scores_ppp.append(cleaner_score)
             
         best_cleaning_idx = pd.Series(cleaner_scores_ppp).idxmax()
         best_cleaning_score = cleaner_scores_ppp[best_cleaning_idx]
+
         if best_cleaning_score > score_no_cleaning:
             df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
-            print(f"Best cleaning method: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score}")
+            print(f"Best cleaning method:")
+            print(f"Outlier detection method: {self.cleaners[best_cleaning_idx].outlier_detection}")
+            print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
+            print(f"Cleaning score: {best_cleaning_score} \n")
         else:
             print("Cleaning didnt't improve the score")
             
