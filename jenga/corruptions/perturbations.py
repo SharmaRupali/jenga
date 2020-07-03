@@ -22,6 +22,17 @@ class Perturbation:
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
         self.fractions = fractions
+        self.corruptions = corruptions
+
+        ## removing the corrsponding corruption from the list if not application
+        ## UPDATE: check if the corruption type is in the corruptions list and only then remove if appilcable
+        if len(self.categorical_columns) == 0:
+            print("Can't apply the SwappedValues corruption because there are no categorical columns. \n\n") ### ? only apply swap to categorical?
+            del self.corruptions[self.corruptions.index(SwappedValues)]
+        elif len(self.numerical_columns) == 0:
+            print("Can't apply the Scaling or GaussianNoise corruptions because there are no categorical columns. \n\n")
+            del self.corruptions[self.corruptions.index(Scaling)]
+            del self.corruptions[self.corruptions.index(GaussianNoise)]
         
     
     def random_perturbation(self, corruption):
@@ -36,31 +47,6 @@ class Perturbation:
         perturbation
         '''
         
-        # ## get a random perturbation type
-        # if len(self.categorical_columns) > 0 and len(self.numerical_columns) > 0:
-        #     perturb_type = random.choice(list(self.corruptions.keys()))
-        # elif len(self.categorical_columns) > 0:
-        #     perturb_type = 'categorical'
-        # elif len(self.numerical_columns) > 0:
-        #     perturb_type = 'numeric'
-
-
-        ## get perturbation on a random column based on the perturbation type
-        ## update perturbation to random selection when more perturbation types are added to corruptions
-        # rand_fraction = random.choice(self.fractions)
-        # if perturb_type is 'numeric':
-        #     col_to_perturb = random.choice(self.numerical_columns)
-        #     perturb_method = random.choice(self.corruptions[perturb_type])
-        #     return perturb_method(col_to_perturb, rand_fraction), [col_to_perturb]
-        # elif perturb_type is 'categorical':
-        #     col_to_perturb = random.sample(self.categorical_columns, 2)
-        #     return SwappedValues(col_to_perturb[0], col_to_perturb[1], rand_fraction), col_to_perturb
-        # elif perturb_type is 'missing':
-        #     missigness = random.choice(['MCAR', 'MAR', 'MNAR'])
-        #     col_to_perturb = random.choice(self.numerical_columns + self.categorical_columns)
-        #     na_value = np.nan
-        #     return MissingValues(col_to_perturb, rand_fraction, na_value, missigness), [col_to_perturb]
-
 
         ## check which type of corruption is given
         perturb_type = ''
@@ -92,11 +78,10 @@ class Perturbation:
         cols_perturbed = []
 
         summary_col_corrupt = defaultdict(list)
-
+      
+        print("Applying perturbations... \n")
         
-        print("Applying perturbations...")
-        
-        for corruption in corruptions:
+        for corruption in self.corruptions: ## update to singular corruption, remove the for loop?
             perturbation, col_perturbed = self.random_perturbation(corruption)
             print(f"{perturbation}")
 
