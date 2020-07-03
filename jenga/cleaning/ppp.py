@@ -70,7 +70,7 @@ class PipelinePerformancePrediction:
         
     def get_corrupted(self, df, corruptions):
         
-        print(f"Generating corrupted training data on {len(df)} rows...")
+        print(f"Generating corrupted training data on {len(df)} rows... \n")
         
         # corruption perturbations to apply
         corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns, corruptions)
