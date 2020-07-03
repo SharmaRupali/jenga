@@ -43,9 +43,14 @@ class Clean:
             
         
     def get_cleaned(self, df_train, df_corrupted):
+
+        print("\nApplying cleaners... \n")
         
         score_no_cleaning = self.ppp.predict_score_ppp(self.ppp_model, df_corrupted)
         print(f"PPP score no cleaning: {score_no_cleaning}")
+
+        summ_clean = {}
+        summary_cleaners = []
         
         cleaner_scores_ppp = []
         for cleaner in self.cleaners:
@@ -55,6 +60,9 @@ class Clean:
             print(f"Imputation method: {cleaner.imputation}")
             print(f"PPP score with cleaning: {cleaner}: {cleaner_score} \n")
             cleaner_scores_ppp.append(cleaner_score)
+
+            summ_clean = {"Outlier detection method": cleaner.outlier_detection, "Imputation method": cleaner.imputation, "PPP score with cleaning": cleaner_score}
+            summary_cleaners.append(summ_clean) ## saving results for returning individuals too
             
         best_cleaning_idx = pd.Series(cleaner_scores_ppp).idxmax()
         best_cleaning_score = cleaner_scores_ppp[best_cleaning_idx]
@@ -68,7 +76,7 @@ class Clean:
         else:
             print("Cleaning didnt't improve the score")
             
-        return df_cleaned, score_no_cleaning, cleaner_scores_ppp
+        return df_cleaned, score_no_cleaning, cleaner_scores_ppp, summary_cleaners
     
     
     def __call__(self, df_train, df_corrupted):
