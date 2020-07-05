@@ -22,17 +22,6 @@ class Perturbation:
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
         self.fractions = fractions
-        self.corruptions = corruptions
-
-        ## removing the corrsponding corruption from the list if not application
-        ## UPDATE: check if the corruption type is in the corruptions list and only then remove if appilcable
-        if len(self.categorical_columns) == 0:
-            print("Can't apply the SwappedValues corruption because there are no categorical columns. \n\n") ### ? only apply swap to categorical?
-            del self.corruptions[self.corruptions.index(SwappedValues)]
-        elif len(self.numerical_columns) == 0:
-            print("Can't apply the Scaling or GaussianNoise corruptions because there are no categorical columns. \n\n")
-            del self.corruptions[self.corruptions.index(Scaling)]
-            del self.corruptions[self.corruptions.index(GaussianNoise)]
         
     
     def random_perturbation(self, corruption):
@@ -78,10 +67,25 @@ class Perturbation:
         cols_perturbed = []
 
         summary_col_corrupt = defaultdict(list)
+
+        ## removing the corrsponding corruption from the list if not application
+        ## UPDATE: check if the corruption type is in the corruptions list and only then remove if appilcable
+        if len(self.categorical_columns) == 0:
+            if SwappedValues in corruptions:
+                print("Can't apply the SwappedValues corruption because there are no categorical columns. \n\n")
+                del corruptions[corruptions.index(SwappedValues)]
+        elif len(self.numerical_columns) == 0:
+            if Scaling in corruptions:
+                print("Can't apply the Scaling corruption because there are no numerical columns. \n\n")
+                del corruptions[corruptions.index(Scaling)]
+            elif GaussianNoise in corruptions:
+                print("Can't apply the GaussianNoise corruption because there are no numerical columns. \n\n")
+                del corruptions[corruptions.index(GaussianNoise)]
       
+        
         print("Applying perturbations... \n")
         
-        for corruption in self.corruptions: ## update to singular corruption, remove the for loop?
+        for corruption in corruptions: ## update to singular corruption, remove the for loop?
             perturbation, col_perturbed = self.random_perturbation(corruption)
             print(f"{perturbation}")
 
