@@ -74,7 +74,7 @@ class Clean:
             print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
             print(f"Cleaning score: {best_cleaning_score} \n")
         else:
-            print("Cleaning didnt't improve the score")
+            print("Cleaning didnt't improve the score \n\n\n\n")
             
         return df_cleaned, score_no_cleaning, cleaner_scores_ppp, summary_cleaners
     
