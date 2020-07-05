@@ -33,10 +33,10 @@ class OutlierDetection:
                 df_outliers[col + "_outlier"] = ''
                 
                 for i in df_corrupted[col].index:
-                    if df_corrupted[col].loc[i] in vals_train_unique:
-                        df_outliers[col + "_outlier"].loc[i] = 0
+                    if df_corrupted.loc[i, col] in vals_train_unique:
+                        df_outliers.loc[i, col + "_outlier"] = 0
                     else:
-                        df_outliers[col + "_outlier"].loc[i] = 1
+                        df_outliers.loc[i, col + "_outlier"] = 1
                 
         return df_outliers
 
@@ -83,8 +83,8 @@ class PyodGeneralOutlierDetection(OutlierDetection):
 
                 ## add a respective outlier col for each col
                 df_outliers[col + "_outlier"] = ''
-                df_outliers[col + "_outlier"].loc[non_nan_idx] = y_pred ## 0: inlier, 1: outlier
-                df_outliers[col + "_outlier"].loc[nan_idx] = 0
+                df_outliers.loc[non_nan_idx, col + "_outlier"] = y_pred ## 0: inlier, 1: outlier
+                df_outliers.loc[nan_idx, col + "_outlier"] = 0
                 
         return df_outliers
 
@@ -106,8 +106,8 @@ class PyODKNN(PyodGeneralOutlierDetection):
 
         for col in df_corrupted.columns:
             for i in df_outliers.index:
-                if df_outliers[col + "_outlier"].loc[i] == 1:
-                    df_outliers[col].loc[i] = np.nan
+                if df_outliers.loc[i, col + "_outlier"] == 1:
+                    df_outliers.loc[i, col] = np.nan
 
         df_outliers = df_outliers[df_corrupted.columns]
         
@@ -131,8 +131,8 @@ class PyODIsolationForest(PyodGeneralOutlierDetection):
 
         for col in df_corrupted.columns:
             for i in df_outliers.index:
-                if df_outliers[col + "_outlier"].loc[i] == 1:
-                    df_outliers[col].loc[i] = np.nan
+                if df_outliers.loc[i, col + "_outlier"] == 1:
+                    df_outliers.loc[i, col] = np.nan
 
         df_outliers = df_outliers[df_corrupted.columns]
         
