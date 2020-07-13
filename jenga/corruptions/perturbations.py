@@ -12,13 +12,11 @@ DEFAULT_CORRUPTIONS = {
     'numeric': [Scaling, GaussianNoise]
 }
 
-DEFAULT_FRACTIONS = [0.25, 0.5, 0.75]
-
 
 class Perturbation:
     
     
-    def __init__(self, categorical_columns, numerical_columns, corruptions, fractions=DEFAULT_FRACTIONS):
+    def __init__(self, categorical_columns, numerical_columns, corruptions, fractions):
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
         self.fractions = fractions
