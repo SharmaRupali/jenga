@@ -12,7 +12,7 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid, corruptions, fractions):
+    def __init__(self, seed, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid):
         
         self.train_data = train_data
         self.train_labels = train_labels
@@ -21,9 +21,6 @@ class PipelinePerformancePrediction:
         
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
-        
-        self.learner = learner
-        self.param_grid = param_grid
         
         
         ## define preprocessing pipeline if not given
@@ -47,9 +44,9 @@ class PipelinePerformancePrediction:
         ])
 
         ## prediction pipeline: append classifier (learner) to the preprocessing pipeline
-        self.pipeline = Pipeline([
+        pipeline = Pipeline([
             ('features', feature_transform),
-            ('learner', self.learner)
+            ('learner', learner)
         ])
         # else:
         #     self.pipeline = pipeline
@@ -63,9 +60,9 @@ class PipelinePerformancePrediction:
                           self.test_labels, 
                           self.categorical_columns, 
                           self.numerical_columns, 
-                          self.pipeline, 
-                          self.learner, 
-                          self.param_grid)
+                          pipeline, 
+                          learner, 
+                          param_grid)
         
         
     def get_corrupted(self, df, corruptions, fractions):
@@ -73,8 +70,8 @@ class PipelinePerformancePrediction:
         print(f"Generating corrupted training data on {len(df)} rows... \n")
         
         # corruption perturbations to apply
-        corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns, corruptions, fractions)
-        df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions)
+        corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns)
+        df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions, fractions)
         
         return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
         

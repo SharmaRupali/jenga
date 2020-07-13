@@ -16,49 +16,12 @@ DEFAULT_CORRUPTIONS = {
 class Perturbation:
     
     
-    def __init__(self, categorical_columns, numerical_columns, corruptions, fractions):
+    def __init__(self, categorical_columns, numerical_columns):
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
-        self.fractions = fractions
         
     
-    def random_perturbation(self, corruption):
-        ''' Get a random perturbation for a column, chosen from corruptions: missing, numeric, or categorical
-    
-        Params:
-        categorical_columns: list
-        numerical_columns: list
-        fractions: list: fractions to select from for corruptions
-
-        Returns:
-        perturbation
-        '''
-        
-
-        ## check which type of corruption is given
-        perturb_type = ''
-        # for corruption in corruptions:
-        for key, val in DEFAULT_CORRUPTIONS.items():
-            for elem in val:
-                if elem == corruption:
-                    perturb_type = key
-
-        rand_fraction = random.choice(self.fractions)
-
-        if perturb_type is 'numeric':
-            col_to_perturb = random.choice(self.numerical_columns)
-            return corruption(col_to_perturb, rand_fraction), [col_to_perturb]
-        elif perturb_type is 'categorical':
-            col_to_perturb = random.sample(self.categorical_columns, 2)
-            return corruption(col_to_perturb[0], col_to_perturb[1], rand_fraction), col_to_perturb
-        elif perturb_type is 'missing':
-            missigness = random.choice(['MCAR', 'MAR', 'MNAR'])
-            col_to_perturb = random.choice(self.numerical_columns + self.categorical_columns)
-            na_value = np.nan
-            return corruption(col_to_perturb, rand_fraction, na_value, missigness), [col_to_perturb]
-        
-    
-    def apply_perturbation(self, df, corruptions):
+    def apply_perturbation(self, df, corruptions, fractions):
         df_corrupted = df.copy()
     
         perturbations = []
@@ -84,7 +47,7 @@ class Perturbation:
         print("Applying perturbations... \n")
         
         for corruption in corruptions: ## update to singular corruption, remove the for loop?
-            perturbation, col_perturbed = self.random_perturbation(corruption)
+            perturbation, col_perturbed = self.random_perturbation(corruption, random.choice(fractions))
             print(f"{perturbation}")
 
             summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
@@ -101,3 +64,25 @@ class Perturbation:
         cols_perturbed = [col for sublist in cols_perturbed for col in sublist]
 
         return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
+
+
+    def random_perturbation(self, corruption, fraction):
+        ## check which type of corruption is given
+        perturb_type = ''
+        for key, val in DEFAULT_CORRUPTIONS.items():
+            for elem in val:
+                if elem == corruption:
+                    perturb_type = key
+
+
+        if perturb_type is 'numeric':
+            col_to_perturb = random.choice(self.numerical_columns)
+            return corruption(col_to_perturb, fraction), [col_to_perturb]
+        elif perturb_type is 'categorical':
+            col_to_perturb = random.sample(self.categorical_columns, 2)
+            return corruption(col_to_perturb[0], col_to_perturb[1], fraction), col_to_perturb
+        elif perturb_type is 'missing':
+            missigness = random.choice(['MCAR', 'MAR', 'MNAR'])
+            col_to_perturb = random.choice(self.numerical_columns + self.categorical_columns)
+            na_value = np.nan
+            return corruption(col_to_perturb, fraction, na_value, missigness), [col_to_perturb]
