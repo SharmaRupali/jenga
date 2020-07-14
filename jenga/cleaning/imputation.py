@@ -15,7 +15,11 @@ class Imputation:
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
         
-    
+        
+    def __repr__(self):
+        return f"{self.__class__.__name__}"
+
+
     @abstractmethod
     def fit_transform(self, df_train, df_corrupted):
         pass

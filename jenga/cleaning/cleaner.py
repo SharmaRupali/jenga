@@ -13,6 +13,10 @@ class Cleaner:
                  imputation=NoImputation):
         self.outlier_detection = outlier_detection
         self.imputation = imputation
+
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}: {self.__dict__}"
         
     
     def apply_cleaner(self, df_train, df_corrupted, categorical_columns, numerical_columns):

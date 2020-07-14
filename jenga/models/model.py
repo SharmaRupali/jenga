@@ -40,6 +40,10 @@ class Model:
         self.param_grid = param_grid
         
     
+    def __repr__(self):
+        return f"{self.__class__.__name__}: {self.__dict__}"
+        
+
     # method for training a model on the raw data with preprocessing
     def fit_model(self, train_data, train_labels):
         grid_search = GridSearchCV(self.pipeline, self.param_grid, scoring='roc_auc', cv=5, verbose=1, n_jobs=-1)

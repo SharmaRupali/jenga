@@ -15,13 +15,16 @@ DEFAULT_CORRUPTIONS = {
 
 class Perturbation:
     
-    
     def __init__(self, categorical_columns, numerical_columns):
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
+
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}: {self.__dict__}"
         
     
-    def apply_perturbation(self, df, corruptions, fractions):
+    def apply_perturbation(self, df, corruptions, fraction):
         df_corrupted = df.copy()
     
         perturbations = []
@@ -47,7 +50,7 @@ class Perturbation:
         print("Applying perturbations... \n")
         
         for corruption in corruptions: ## update to singular corruption, remove the for loop?
-            perturbation, col_perturbed = self.random_perturbation(corruption, random.choice(fractions))
+            perturbation, col_perturbed = self.random_perturbation(corruption, fraction)
             print(f"{perturbation}")
 
             summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too

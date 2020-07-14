@@ -42,6 +42,10 @@ class Clean:
                                 )
             
         
+    def __repr__(self):
+        return f"{self.__class__.__name__}: {self.__dict__}"
+
+
     def get_cleaned(self, df_train, df_corrupted):
 
         print("\nApplying cleaners... \n")
@@ -56,8 +60,8 @@ class Clean:
         for cleaner in self.cleaners:
             df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
             cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
-            print(f"Outlier detection method: {cleaner.outlier_detection}")
-            print(f"Imputation method: {cleaner.imputation}")
+            # print(f"Outlier detection method: {cleaner.outlier_detection}")
+            # print(f"Imputation method: {cleaner.imputation}")
             print(f"PPP score with cleaning: {cleaner}: {cleaner_score} \n")
             cleaner_scores_ppp.append(cleaner_score)
 
@@ -70,9 +74,9 @@ class Clean:
         if best_cleaning_score > score_no_cleaning:
             df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
             print(f"Best cleaning method:")
-            print(f"Outlier detection method: {self.cleaners[best_cleaning_idx].outlier_detection}")
-            print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
-            print(f"Cleaning score: {best_cleaning_score} \n")
+            # print(f"Outlier detection method: {self.cleaners[best_cleaning_idx].outlier_detection}")
+            # print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
+            print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n\n\n\n")
         else:
             print("Cleaning didnt't improve the score \n\n\n\n")
             

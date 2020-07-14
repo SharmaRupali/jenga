@@ -22,8 +22,9 @@ class Dataset:
         data = openml.datasets.get_dataset(dataset_name)
         
         ## summary
-        print(f"Dataset '{data.name}', target: '{data.default_target_attribute}'")
-        print(data.description[:500])
+        # print(f"Dataset '{data.name}', target: '{data.default_target_attribute}'")
+        # print(data.description[:500])
+        print(f"Dataset: {data.name}")
         
         ## load the data
         # X: An array/dataframe where each row represents one example with the corresponding feature values
@@ -39,8 +40,8 @@ class Dataset:
         # will be used further in order not to manually distinguish between the numerical and categorical features
         self.attribute_types = pd.DataFrame(self.attribute_names, columns=["attribute_names"])
         self.attribute_types['categorical_indicator'] = categorical_indicator
-        print("\nAttribute types: ")
-        display(self.attribute_types)
+        # print("\nAttribute types: ")
+        # display(self.attribute_types)
 
         self.all_data = X.copy(deep=True)
         self.all_data['class'] = y
@@ -134,5 +135,5 @@ class DataCorruption:
     def transform(self, data):
         pass
 
-    def __str__(self):
+    def __repr__(self):
         return f"{self.__class__.__name__}: {self.__dict__}"
