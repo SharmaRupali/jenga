@@ -50,7 +50,7 @@ class Perturbation:
         print("Applying perturbations... \n")
         
         for corruption in corruptions: ## update to singular corruption, remove the for loop?
-            perturbation, col_perturbed = self.random_perturbation(corruption, fraction)
+            perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
             print(f"{perturbation}")
 
             summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
@@ -69,7 +69,7 @@ class Perturbation:
         return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
 
 
-    def random_perturbation(self, corruption, fraction):
+    def get_perturbation(self, corruption, fraction):
         ## check which type of corruption is given
         perturb_type = ''
         for key, val in DEFAULT_CORRUPTIONS.items():
