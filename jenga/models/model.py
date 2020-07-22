@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import classification_report, roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, mean_absolute_error, mean_squared_error
 
 
 class Model:
@@ -58,3 +58,22 @@ class Model:
         roc_auc_acore = roc_auc_score(self.test_labels, np.transpose(pred_prob)[1])
         
         return roc_auc_acore
+
+
+    # method for computing evaluation metrics
+    def evaluation_metrics(self, model, test_data):
+        y_pred = model.predict(test_data)
+        
+        eval_scores = {
+            'roc_auc_acore': roc_auc_score(self.test_labels, np.transpose(model.predict_proba(test_data))[1]),
+            # 'accuracy_score': accuracy_score(self.test_labels, y_pred),
+            'classification_report': classification_report(self.test_labels, y_pred, output_dict=True)
+            # 'precision_score': precision_score(self.test_labels, y_pred),
+            # 'recall_score': recall_score(self.test_labels, y_pred),
+            # 'f1_score': f1_score(self.test_labels, y_pred),
+            
+            # 'mean_squared_error': mean_squared_error(self.test_labels, y_pred),
+            # 'mean_absolute_error': mean_absolute_error(self.test_labels, y_pred)
+        }
+
+        return eval_scores

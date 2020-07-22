@@ -89,6 +89,6 @@ class PipelinePerformancePrediction:
     
     def predict_score_ppp(self, model, df):
         
-        score = self.model_obj.roc_auc_score_on_test_data(model, df)
+        score = self.model_obj.evaluation_metrics(model, df)
         
         return score
