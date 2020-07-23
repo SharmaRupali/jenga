@@ -69,13 +69,14 @@ class PipelinePerformancePrediction:
         return f"{self.__class__.__name__}: {self.__dict__}"
         
         
-    def get_corrupted(self, df, corruptions, fraction):
+    def get_corrupted(self, df, corruptions, fraction, num_repetitions):
         
-        print(f"Generating corrupted training data on {len(df)} rows... \n")
+        print(f"\nGenerating corrupted training data on {len(df)} rows... \n")
         
         # corruption perturbations to apply
         corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns)
-        df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions, fraction)
+        for _ in range(num_repetitions):
+            df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions, fraction)
         
         return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
         
