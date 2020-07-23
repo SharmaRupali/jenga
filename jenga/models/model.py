@@ -50,14 +50,6 @@ class Model:
         model = grid_search.fit(train_data, train_labels)
 
         return model
-    
-    
-    # method for computing ROC AUC scores
-    def roc_auc_score_on_test_data(self, model, test_data):
-        pred_prob = model.predict_proba(test_data)
-        roc_auc_acore = roc_auc_score(self.test_labels, np.transpose(pred_prob)[1])
-        
-        return roc_auc_acore
 
 
     # method for computing evaluation metrics
