@@ -54,13 +54,14 @@ class Clean:
         summ_clean = {}
         summary_cleaners = []
         
+        print(f"PPP scores with cleaning: ")
         cleaner_scores_ppp = []
         for cleaner in self.cleaners:
             df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
             cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
             # print(f"Outlier detection method: {cleaner.outlier_detection}")
             # print(f"Imputation method: {cleaner.imputation}")
-            print(f"PPP score with cleaning: {cleaner}: {cleaner_score} \n")
+            print(f"\t... {cleaner}: {cleaner_score}")
             cleaner_scores_ppp.append(cleaner_score)
 
             summ_clean = {"Outlier detection method": cleaner.outlier_detection, "Imputation method": cleaner.imputation, "PPP score with cleaning": cleaner_score}
@@ -75,18 +76,18 @@ class Clean:
         best_cleaning_score = cleaner_scores_ppp[best_cleaning_idx]
 
         df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
-        print(f"Best cleaning method:")
-        print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n\n")
+        print(f"\nBest cleaning method:")
+        print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n")
 
         if best_cleaning_score["roc_auc_acore"] > score_no_cleaning["roc_auc_acore"]:
-            print("Cleaning improved the overall score score \n\n\n\n")
+            print("Cleaning improved the overall score \n\n\n")
             # df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
             # print(f"Best cleaning method:")
             # # print(f"Outlier detection method: {self.cleaners[best_cleaning_idx].outlier_detection}")
             # # print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
             # print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n\n\n\n")
         else:
-            print("Cleaning didnt't improve the overall score score \n\n\n")
+            print("Cleaning didnt't improve the overall score \n\n\n")
             
         return df_cleaned, score_no_cleaning, best_cleaning_score, cleaner_scores_ppp, summary_cleaners
     

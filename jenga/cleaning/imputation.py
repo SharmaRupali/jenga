@@ -2,7 +2,7 @@ from abc import abstractmethod
 import numpy as np
 import pandas as pd
 
-import datawig
+# import datawig
 
 
 
@@ -81,38 +81,38 @@ class MeanModeImputation(Imputation):
 
     
 
-class DatawigImputation(Imputation):
+# class DatawigImputation(Imputation):
     
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):        
-        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
-    
-    
-    def fit_transform(self, df_train, df_corrupted):
-        df_imputed = df_corrupted.copy()
-
-        for col in df_train.columns:
-            if pd.api.types.is_categorical_dtype(df_train[col]):
-                df_train[col] = df_train[col].astype(str)
-
-        for col in df_imputed.columns:
-            if pd.api.types.is_categorical_dtype(df_imputed[col]):
-                df_imputed[col] = df_imputed[col].astype(str)
-
-
-        for col in self.categorical_columns + self.numerical_columns:
-            output_column = col
-            input_columns = list(set(df_train.columns) - set([output_column]))
-
-            print(f"Fitting model for column: {col}")
-            model = datawig.SimpleImputer(input_columns, output_column, 'imputer_model')
-            model.fit(df_train)
-
-            df_imputed = model.predict(df_imputed)
-            df_imputed[col].fillna(df_imputed[col + '_imputed'], inplace=True)
-            df_imputed = df_imputed[df_corrupted.columns]
-
-        return df_imputed
+#     def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):        
+#         Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
-    def __call__(self, df_train, df_corrupted):
-        return self.fit_transform(df_train, df_corrupted)
+#     def fit_transform(self, df_train, df_corrupted):
+#         df_imputed = df_corrupted.copy()
+
+#         for col in df_train.columns:
+#             if pd.api.types.is_categorical_dtype(df_train[col]):
+#                 df_train[col] = df_train[col].astype(str)
+
+#         for col in df_imputed.columns:
+#             if pd.api.types.is_categorical_dtype(df_imputed[col]):
+#                 df_imputed[col] = df_imputed[col].astype(str)
+
+
+#         for col in self.categorical_columns + self.numerical_columns:
+#             output_column = col
+#             input_columns = list(set(df_train.columns) - set([output_column]))
+
+#             print(f"Fitting model for column: {col}")
+#             model = datawig.SimpleImputer(input_columns, output_column, 'imputer_model')
+#             model.fit(df_train)
+
+#             df_imputed = model.predict(df_imputed)
+#             df_imputed[col].fillna(df_imputed[col + '_imputed'], inplace=True)
+#             df_imputed = df_imputed[df_corrupted.columns]
+
+#         return df_imputed
+    
+    
+#     def __call__(self, df_train, df_corrupted):
+#         return self.fit_transform(df_train, df_corrupted)
