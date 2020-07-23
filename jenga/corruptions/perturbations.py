@@ -45,13 +45,11 @@ class Perturbation:
             elif GaussianNoise in corruptions:
                 print("Can't apply the GaussianNoise corruption because there are no numerical columns. \n\n")
                 del corruptions[corruptions.index(GaussianNoise)]
-      
+
         
-        print("Applying perturbations... \n")
-        
-        for corruption in corruptions: ## update to singular corruption, remove the for loop?
+        for corruption in corruptions: 
             perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
-            print(f"{perturbation}")
+            print(f"\t... perturbation: {perturbation}")
 
             summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
 
