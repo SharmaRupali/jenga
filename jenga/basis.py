@@ -51,7 +51,7 @@ class Dataset:
         self.numerical_columns = list(self.attribute_types['attribute_names'][self.attribute_types['categorical_indicator'] == False])
         
     
-    def get_train_test_data(self):
+    def get_train_test_data(self, test_size=0.2):
         
         ''' Get train and test data along with train and test labels.
 
@@ -66,7 +66,7 @@ class Dataset:
         test_labels: list
         '''
 
-        train_split, test_split = train_test_split(self.all_data, test_size=0.2)
+        train_split, test_split = train_test_split(self.all_data, test_size=test_size)
 
         train_data = train_split[self.attribute_names]
         train_labels = np.array(train_split['class'])
