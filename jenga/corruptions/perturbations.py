@@ -49,7 +49,7 @@ class Perturbation:
         
         for corruption in corruptions: 
             perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
-            print(f"\t... perturbation: {perturbation}")
+            print(f"\tperturbation: {perturbation}")
 
             summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
 

@@ -61,7 +61,7 @@ class Clean:
             cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
             # print(f"Outlier detection method: {cleaner.outlier_detection}")
             # print(f"Imputation method: {cleaner.imputation}")
-            print(f"\t... {cleaner}: {cleaner_score}")
+            print(f"{cleaner}: {cleaner_score}")
             cleaner_scores_ppp.append(cleaner_score)
 
             summ_clean = {"Outlier detection method": cleaner.outlier_detection, "Imputation method": cleaner.imputation, "PPP score with cleaning": cleaner_score}
