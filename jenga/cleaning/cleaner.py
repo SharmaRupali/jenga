@@ -22,10 +22,10 @@ class Cleaner:
     def apply_cleaner(self, df_train, df_corrupted, categorical_columns, numerical_columns):
         df_cleaned = self.outlier_detection(df_train, df_corrupted)
         
-        # do something for fixing/removing the outliers
-        if 'outlier' in df_cleaned.columns:
-            ### TODO 
-            df_cleaned = df_cleaned.drop('outlier', axis=1)
+        # # do something for fixing/removing the outliers
+        # if 'outlier' in df_cleaned.columns:
+        #     ### TODO 
+        #     df_cleaned = df_cleaned.drop('outlier', axis=1)
             
         # impute
         df_cleaned = self.imputation(df_train, df_cleaned)
