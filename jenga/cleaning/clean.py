@@ -11,13 +11,18 @@ class Clean:
                  df_train, 
                  df_corrupted, 
                  categorical_columns, 
-                 numerical_columns,
+                 numerical_columns, 
+                 categorical_precision_threshold, 
+                 numerical_std_error_threshold,
                  ppp,
                  ppp_model,
                  cleaners):
 
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
+
+        self.categorical_precision_threshold = categorical_precision_threshold
+        self.numerical_std_error_threshold = numerical_std_error_threshold
         
         self.ppp = ppp
         self.ppp_model = ppp_model
@@ -27,11 +32,15 @@ class Clean:
             self.cleaners.append(Cleaner(df_train,
                                          df_corrupted,
                                          self.categorical_columns,
-                                         self.numerical_columns,
+                                         self.numerical_columns, 
+                                         self.categorical_precision_threshold, 
+                                         self.numerical_std_error_threshold,
                                          outlier_detection = outd(df_train,
                                                                   df_corrupted,
                                                                   self.categorical_columns,
-                                                                  self.numerical_columns),
+                                                                  self.numerical_columns, 
+                                                                  self.categorical_precision_threshold, 
+                                                                  self.numerical_std_error_threshold),
                                          imputation = imp(df_train,
                                                           df_corrupted,
                                                           self.categorical_columns,
@@ -57,7 +66,7 @@ class Clean:
         print(f"PPP scores with cleaning: ")
         cleaner_scores_ppp = []
         for cleaner in self.cleaners:
-            df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
+            df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted)
             cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
             # print(f"Outlier detection method: {cleaner.outlier_detection}")
             # print(f"Imputation method: {cleaner.imputation}")
@@ -75,7 +84,7 @@ class Clean:
         best_cleaning_idx = pd.Series(roc_scores_for_best).idxmax()
         best_cleaning_score = cleaner_scores_ppp[best_cleaning_idx]
 
-        df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
+        df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted)
         print(f"\nBest cleaning method:")
         print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n")
 
