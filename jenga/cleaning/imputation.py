@@ -22,7 +22,7 @@ class Imputation:
 
 
     @abstractmethod
-    def fit_transform(self, df_train, df_corrupted):
+    def fit_transform(self, df_train, df_corrupted, predictors):
         pass
 
 
@@ -41,13 +41,13 @@ class NoImputation(Imputation):
         Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
-    def fit_transform(self, df_train, df_corrupted):
+    def fit_transform(self, df_train, df_corrupted, predictors):
         df_imputed = df_corrupted.copy()
         return df_imputed
     
     
-    def __call__(self, df_train, df_corrupted):
-        return self.fit_transform(df_train, df_corrupted)
+    def __call__(self, df_train, df_corrupted, predictors):
+        return self.fit_transform(df_train, df_corrupted, predictors)
     
     
     
@@ -60,7 +60,7 @@ class MeanModeImputation(Imputation):
         Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
     
     
-    def fit_transform(self, df_train, df_corrupted):
+    def fit_transform(self, df_train, df_corrupted, predictors):
         df_imputed = df_corrupted.copy()
         
         for col in df_train.columns:
@@ -85,8 +85,8 @@ class MeanModeImputation(Imputation):
         return df_imputed
     
     
-    def __call__(self, df_train, df_corrupted):
-        return self.fit_transform(df_train, df_corrupted)
+    def __call__(self, df_train, df_corrupted, predictors):
+        return self.fit_transform(df_train, df_corrupted, predictors)
 
     
 
@@ -129,36 +129,30 @@ class MeanModeImputation(Imputation):
 
 
 class AutoGluonImputation(Imputation):
-    
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns):
-        Imputation.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns)
 
-        self.df_train = self.cat_cols_to_str(self.df_train)
-        self.df_corrupted = self.cat_cols_to_str(self.df_corrupted)
+    def fit_transform(self, df_train, df_corrupted, predictors):
+        df_train = self.cat_cols_to_str(df_train)
+        df_imputed = self.cat_cols_to_str(df_corrupted.copy())
 
-        self.predictors = {}
-    
-    
-    def fit_transform(self, df_train, df_corrupted):
-        df_imputed = self.df_corrupted.copy()
+        if not predictors:
+            for col in self.categorical_columns:
+                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass')
 
-        for col in self.categorical_columns:
-            self.predictors[col] = task.fit(train_data=self.df_train, label=col, problem_type='multiclass')
-            
-        for col in self.numerical_columns:
-            self.predictors[col] = task.fit(train_data=self.df_train, label=col, problem_type='regression')
+            for col in self.numerical_columns:
+                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression')
 
 
-        for col in self.df_corrupted.columns:
-            df_imputed[col + '_imputed'] = self.predictors[col].predict(df_imputed.drop([col], axis=1)) # drop the actual column before predicting
-            perf = self.predictors[col].evaluate_predictions(df_imputed[col], df_imputed[col + '_imputed'], auxiliary_metrics=True)
+        for col in df_corrupted.columns:
+            df_imputed[col + '_imputed'] = predictors[col].predict(df_imputed.drop([col], axis=1)) # drop the actual column before predicting
+            perf = predictors[col].evaluate_predictions(df_imputed[col], df_imputed[col + '_imputed'], auxiliary_metrics=True)
 
             df_imputed[col].fillna(df_imputed[col + '_imputed'], inplace=True)
-        
-        df_imputed = df_imputed[self.df_corrupted.columns]
-                
+
+
+        df_imputed = df_imputed[df_corrupted.columns]
+
         return df_imputed
     
     
-    def __call__(self, df_train, df_corrupted):
-        return self.fit_transform(df_train, df_corrupted)
+    def __call__(self, df_train, df_corrupted, predictors):
+        return self.fit_transform(df_train, df_corrupted, predictors)
