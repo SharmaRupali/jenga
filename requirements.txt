@@ -1,14 +1,12 @@
 #opencv-python
-numpy
-keras
+keras==2.2.4
 #pillow
 #cv2
-scikit-learn
-pandas
-jupyter
+scikit-learn==0.21.3
+pandas==0.25.1
+jupyter==1.0.0
+tensorflow==1.13.1
+tensorflow-data-validation==0.13.0
 matplotlib
-openml
-pyod
-mxnet
-autogluon
-mxnet-mkl --pre
+imgaug
+imagecorruptions
