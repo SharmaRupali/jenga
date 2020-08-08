@@ -12,9 +12,10 @@ RUN pip install keras
 RUN pip install openml
 RUN pip install pyod
 RUN pip install mxnet
-RUN pip install autogluon
 RUN pip install mxnet-mkl --pre
 RUN pip install jupyter
+
+RUN pip install -e autogluon/
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
 ENV TINI_VERSION v0.6.0
