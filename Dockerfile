@@ -2,6 +2,7 @@ FROM python:3.7.7
 
 RUN mkdir src
 WORKDIR src/
+COPY . .
 
 RUN pip install numpy
 RUN pip install matplotlib
