@@ -2,6 +2,9 @@ RUN mkdir src
 WORKDIR src/
 COPY . .
 
+FROM dclong/jupyterhub-cuda_b
+RUN pip3 install --no-cache-dir mxnet-cu101 autogluon
+
 RUN pip install numpy
 RUN pip install matplotlib
 RUN pip install pandas
@@ -10,9 +13,6 @@ RUN pip install keras
 RUN pip install openml
 RUN pip install pyod
 RUN pip install jupyter
-
-FROM dclong/jupyterhub-cuda_b
-RUN pip3 install --no-cache-dir mxnet-cu101 autogluon
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
 ENV TINI_VERSION v0.6.0
