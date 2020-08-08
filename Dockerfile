@@ -1,9 +1,9 @@
+FROM dclong/jupyterhub-cuda_b
+RUN pip3 install --no-cache-dir mxnet-cu101 autogluon
+
 RUN mkdir src
 WORKDIR src/
 COPY . .
-
-FROM dclong/jupyterhub-cuda_b
-RUN pip3 install --no-cache-dir mxnet-cu101 autogluon
 
 RUN pip install numpy
 RUN pip install matplotlib
