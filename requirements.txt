@@ -14,4 +14,4 @@ openml
 pyod
 mxnet
 autogluon
-mxnet-mkl --pre --upgrade
+mxnet-mkl --pre
