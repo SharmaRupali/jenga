@@ -1,24 +1,19 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get -y update
-RUN apt-get install -y build-essential python3.6 python3-pip python3-dev
-
-RUN pip3 -q install pip
+FROM python:3.7.7
 
 RUN mkdir src
 WORKDIR src/
-COPY . .
 
-RUN pip3 install numpy
-RUN pip3 install matplotlib
-RUN pip3 install pandas
-RUN pip3 install scikit-learn
-RUN pip3 install keras
-RUN pip3 install openml
-RUN pip3 install pyod
-RUN pip3 install mxnet
-RUN pip3 install autogluon
-RUN pip3 install mxnet-mkl --pre
-RUN pip3 install jupyter
+RUN pip install numpy
+RUN pip install matplotlib
+RUN pip install pandas
+RUN pip install scikit-learn
+RUN pip install keras
+RUN pip install openml
+RUN pip install pyod
+RUN pip install mxnet
+RUN pip install autogluon
+RUN pip install mxnet-mkl --pre
+RUN pip install jupyter
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
 ENV TINI_VERSION v0.6.0
