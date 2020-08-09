@@ -1,5 +1,4 @@
-FROM dclong/jupyterhub-cuda_b
-RUN pip3 install --no-cache-dir mxnet-cu101 autogluon
+FROM python:3.7.7
 
 RUN mkdir src
 WORKDIR src/
@@ -12,6 +11,9 @@ RUN pip install scikit-learn
 RUN pip install keras
 RUN pip install openml
 RUN pip install pyod
+RUN pip install mxnet
+RUN pip install autogluon
+RUN pip install mxnet-mkl --pre
 RUN pip install jupyter
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents kernel crashes.
