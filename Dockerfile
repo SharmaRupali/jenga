@@ -5,6 +5,7 @@ WORKDIR src/
 
 COPY . .
 
+RUN python -m pip install --upgrade pip
 RUN pip install numpy
 RUN pip install matplotlib
 RUN pip install pandas

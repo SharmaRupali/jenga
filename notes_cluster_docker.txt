@@ -1,19 +1,32 @@
 sudo password: mother*mother
 beuth: user: s77220, password: nPnS7SAs3
 
+
 Cluster:
+
+Install kubectl:
+curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+kubectl version --client
+
+mkdir .kube
+download config file
+mv Downloads/config .kube/config
+
 Connect to Beuth VPN: sudo openfortivpn sslvpn.beuth-hochschule.de:443 --username=s77220
 check cluster: kubectl cluster-info
 
 create secret for registry: kubectl create secret docker-registry private-registry-auth --docker-server=registry.datexis.com --docker-username=datexis --docker-password=ApJeg.flomruf4
-
 delete secret: kubectl delete secret private-registry-auth
 
 create pod from yml file: kubectl apply -f jengapod.yml
 delete pod: kubectl delete -f jengapod.yml
 check pods: kubectl get pods
 
+
 Docker
+sudo apt install docker.io
 (If error running: https://stackoverflow.com/questions/47854463/docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socke)
 
 Image:
@@ -24,6 +37,7 @@ build image: docker image build --file Dockerfile .
 name and tag the image: docker build -t <PATH/NAME> .
 remove image: docker image rmi --force <IMAGE_ID>
 change image/repository name: docker image tag <repo_name>:<tag> <new_name>:<new_tag>
+
 
 Registry:
 Image name (change if needed): registry.datexis.com/s77220/jenga
