@@ -91,7 +91,7 @@ models = {SGDClassifier(loss='log'): {'learner__max_iter': [500, 1000, 5000],
 
 corruptions = [MissingValues, SwappedValues, Scaling, GaussianNoise]
 
-fractions = np.random.uniform(0, 1, 2) # np.random.uniform(0, 1, 3)
+fractions = [0.15, 0.25, 0.5, 0.75, 0.9]
 
 cleaners = [
     (NoOutlierDetection, MeanModeImputation),
@@ -104,7 +104,7 @@ cleaners = [
 ]
 
 
-for _ in range(1):
+for _ in range(50):
   print("\n\n..................................ITERATION..................................\n")
   ind_results = []
 
