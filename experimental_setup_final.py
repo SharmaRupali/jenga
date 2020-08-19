@@ -104,7 +104,7 @@ cleaners = [
 ]
 
 
-for _ in range(50):
+for _ in range(10):
   print("\n\n..................................ITERATION..................................\n")
   ind_results = []
 
