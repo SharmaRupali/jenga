@@ -72,7 +72,7 @@ def run_experiment(dataset_name, learner, param_grid, corruptions, fraction, cle
     return summary #summary_col_corrupt, result
 
 
-datasets = ['parkinsons', 'heart-statlog', 'credit-g']
+datasets = ['credit-g', 'parkinsons', 'heart-statlog']
 
 
 ## model parameters
@@ -89,7 +89,7 @@ models = {SGDClassifier(loss='log'): {'learner__max_iter': [500, 1000, 5000],
 ## make dict of multiple leraners and corresponding param_grids
 
 
-corruptions = [MissingValues, SwappedValues, Scaling, GaussianNoise]
+corruptions = [[MissingValues], [SwappedValues], [Scaling], [GaussianNoise]]
 
 fractions = [0.15, 0.25, 0.5, 0.75, 0.9]
 
@@ -99,7 +99,6 @@ cleaners = [
     (PyODKNNOutlierDetection, AutoGluonImputation),
     (PyODIsolationForestOutlierDetection, MeanModeImputation),
     (PyODIsolationForestOutlierDetection, AutoGluonImputation),
-    (AutoGluonOutlierDetection, MeanModeImputation),
     (AutoGluonOutlierDetection, AutoGluonImputation)
 ]
 
@@ -107,11 +106,12 @@ cleaners = [
 for _ in range(10):
   print("\n\n..................................ITERATION..................................\n")
   ind_results = []
-
+  
   for dataset in datasets:
-      for learner, param_grid in models.items():
-          for fraction in fractions:
-              ind_results.append(run_experiment(dataset, learner, param_grid, [Scaling], fraction, cleaners, 100))
+    for learner, param_grid in models.items():
+      for corruption in corruptions:
+        for fraction in fractions:
+          ind_results.append(run_experiment(dataset, learner, param_grid, corruption, fraction, cleaners, 100))
 
 
 ind_results
