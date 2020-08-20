@@ -111,7 +111,7 @@ for _ in range(10):
   for dataset in datasets:
       for learner, param_grid in models.items():
           for fraction in fractions:
-              ind_results.append(run_experiment(dataset, learner, param_grid, [MissingValues], fraction, cleaners, 100))
+              ind_results.append(run_experiment(dataset, learner, param_grid, [Scaling], fraction, cleaners, 100))
 
 
 ind_results

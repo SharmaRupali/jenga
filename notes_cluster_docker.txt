@@ -2,7 +2,7 @@ sudo password: mother*mother
 beuth: user: s77220, password: nPnS7SAs3
 
 
-Cluster:
+CLUSTER
 
 Install kubectl:
 curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -25,7 +25,16 @@ delete pod: kubectl delete -f jengapod.yml
 check pods: kubectl get pods
 
 
-Docker
+PODS
+
+name: jenga-fractions-missing
+image: registry.datexis.com/s77220/jenga-fractions:missingvals
+
+
+
+
+DOCKER
+
 sudo apt install docker.io
 (If error running: https://stackoverflow.com/questions/47854463/docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socke)
 
@@ -44,3 +53,4 @@ Image name (change if needed): registry.datexis.com/s77220/jenga
 
 login: docker login registry.datexis.com (Username: datexis, Password: ApJeg.flomruf4)
 push: docker push registry.datexis.com/s77220/sharma-jenga
+
