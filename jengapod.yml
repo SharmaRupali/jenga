@@ -1,21 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: jenga-fractions-scaling
+  name: jenga-experiments1
   namespace: fbiessmann
 spec:
   restartPolicy: OnFailure
   containers:
-  - name: jenga-fractions
-    image: registry.datexis.com/s77220/jenga-fractions:scaling
+  - name: jenga-experiments
+    image: registry.datexis.com/s77220/jenga-experiments:latest
     ports:
     - name: client-port
       containerPort: 5000
     resources:
       limits:
         memory: 125Gi
-        nvidia.com/gpu: 2
   imagePullSecrets:
     - name: private-registry-auth
-  nodeSelector:
-    gpu: p100
