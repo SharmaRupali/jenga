@@ -1,0 +1,144 @@
+Dataset: credit-g
+Found 13 categorical and 7 numeric features 
+
+Fitting 5 folds for each of 36 candidates, totalling 180 fits
+
+Generating corrupted training data on 200 rows... 
+
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'own_telephone', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'own_telephone', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'personal_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'checking_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'installment_commitment', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'checking_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'own_telephone', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'credit_amount', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'property_magnitude', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'existing_credits', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'checking_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'existing_credits', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'personal_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'credit_amount', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'existing_credits', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'property_magnitude', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'installment_commitment', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'installment_commitment', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'credit_amount', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'other_parties', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'checking_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'checking_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'job', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'installment_commitment', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'other_payment_plans', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'existing_credits', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'residence_since', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'personal_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'property_magnitude', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'installment_commitment', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'other_payment_plans', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'housing', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'job', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'savings_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'credit_history', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'duration', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'num_dependents', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'personal_status', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'foreign_worker', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'own_telephone', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'purpose', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'credit_amount', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+
+Applying cleaners... 
+
+PPP score no cleaning: {'roc_auc_acore': 0.7835184985438464, 'classification_report': {'bad': {'precision': 0.7435897435897436, 'recall': 0.3972602739726027, 'f1-score': 0.5178571428571428, 'support': 73}, 'good': {'precision': 0.7267080745341615, 'recall': 0.9212598425196851, 'f1-score': 0.8125, 'support': 127}, 'accuracy': 0.73, 'macro avg': {'precision': 0.7351489090619525, 'recall': 0.6592600582461439, 'f1-score': 0.6651785714285714, 'support': 200}, 'weighted avg': {'precision': 0.732869883739449, 'recall': 0.73, 'f1-score': 0.7049553571428571, 'support': 200}}}
+PPP scores with cleaning: 
+
+Outlier detection method: NoOutlierDetection, Outlier Detection Score: {'Precision': 0.375, 'Recall': 0.5, 'F1-score': 0.42857142857142855, 'Accuracy': 0.75}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 2483414.1763062496}
+Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.798727213892784, 'classification_report': {'bad': {'precision': 0.75, 'recall': 0.410958904109589, 'f1-score': 0.5309734513274337, 'support': 73}, 'good': {'precision': 0.73125, 'recall': 0.9212598425196851, 'f1-score': 0.8153310104529616, 'support': 127}, 'accuracy': 0.735, 'macro avg': {'precision': 0.740625, 'recall': 0.666109373314637, 'f1-score': 0.6731522308901976, 'support': 200}, 'weighted avg': {'precision': 0.7380937499999999, 'recall': 0.735, 'f1-score': 0.711540501372144, 'support': 200}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.8846153846153846, 'Recall': 0.95, 'F1-score': 0.908466819221968, 'Accuracy': 0.925}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 6109232.952848124}
+Cleaner: (PyODKNNOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.7912846510624529, 'classification_report': {'bad': {'precision': 0.78125, 'recall': 0.3424657534246575, 'f1-score': 0.47619047619047616, 'support': 73}, 'good': {'precision': 0.7142857142857143, 'recall': 0.9448818897637795, 'f1-score': 0.8135593220338982, 'support': 127}, 'accuracy': 0.725, 'macro avg': {'precision': 0.7477678571428572, 'recall': 0.6436738215942185, 'f1-score': 0.6448748991121872, 'support': 200}, 'weighted avg': {'precision': 0.7387276785714286, 'recall': 0.725, 'f1-score': 0.6904196933010492, 'support': 200}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.8846153846153846, 'Recall': 0.95, 'F1-score': 0.908466819221968, 'Accuracy': 0.925}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 3150481.4503125907}
+Cleaner: (PyODKNNOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.7968935389925573, 'classification_report': {'bad': {'precision': 0.7714285714285715, 'recall': 0.3698630136986301, 'f1-score': 0.5, 'support': 73}, 'good': {'precision': 0.7212121212121212, 'recall': 0.937007874015748, 'f1-score': 0.8150684931506849, 'support': 127}, 'accuracy': 0.73, 'macro avg': {'precision': 0.7463203463203463, 'recall': 0.6534354438571891, 'f1-score': 0.6575342465753424, 'support': 200}, 'weighted avg': {'precision': 0.7395411255411255, 'recall': 0.73, 'f1-score': 0.7000684931506848, 'support': 200}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7717391304347826, 'Recall': 0.86, 'F1-score': 0.7707173272191287, 'Accuracy': 0.79}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 7287871.673373499}
+Cleaner: (PyODIsolationForestOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.7773702944666163, 'classification_report': {'bad': {'precision': 0.7741935483870968, 'recall': 0.3287671232876712, 'f1-score': 0.4615384615384615, 'support': 73}, 'good': {'precision': 0.7100591715976331, 'recall': 0.9448818897637795, 'f1-score': 0.8108108108108107, 'support': 127}, 'accuracy': 0.72, 'macro avg': {'precision': 0.7421263599923649, 'recall': 0.6368245065257254, 'f1-score': 0.6361746361746361, 'support': 200}, 'weighted avg': {'precision': 0.7334682191257873, 'recall': 0.72, 'f1-score': 0.6833264033264033, 'support': 200}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7906976744186047, 'Recall': 0.88, 'F1-score': 0.7994652406417112, 'Accuracy': 0.82}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 4999470.864595834}
+Cleaner: (PyODIsolationForestOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.774565850501564, 'classification_report': {'bad': {'precision': 0.7142857142857143, 'recall': 0.3424657534246575, 'f1-score': 0.46296296296296297, 'support': 73}, 'good': {'precision': 0.7090909090909091, 'recall': 0.9212598425196851, 'f1-score': 0.8013698630136987, 'support': 127}, 'accuracy': 0.71, 'macro avg': {'precision': 0.7116883116883117, 'recall': 0.6318627979721713, 'f1-score': 0.6321664129883309, 'support': 200}, 'weighted avg': {'precision': 0.7109870129870131, 'recall': 0.71, 'f1-score': 0.6778513444951801, 'support': 200}}}
+
+Outlier detection method: AutoGluonOutlierDetection, Outlier Detection Score: {'Precision': 0.3704663212435233, 'Recall': 0.4766666666666667, 'F1-score': 0.41690962099125367, 'Accuracy': 0.715}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 4132821.169384754}
+Cleaner: (AutoGluonOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.7857836263617733, 'classification_report': {'bad': {'precision': 0.7777777777777778, 'recall': 0.2876712328767123, 'f1-score': 0.42, 'support': 73}, 'good': {'precision': 0.6994219653179191, 'recall': 0.952755905511811, 'f1-score': 0.8066666666666668, 'support': 127}, 'accuracy': 0.71, 'macro avg': {'precision': 0.7385998715478485, 'recall': 0.6202135691942616, 'f1-score': 0.6133333333333334, 'support': 200}, 'weighted avg': {'precision': 0.7280218368657675, 'recall': 0.71, 'f1-score': 0.6655333333333334, 'support': 200}}}
+
+Best cleaning method:
+Cleaning score: Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.798727213892784, 'classification_report': {'bad': {'precision': 0.75, 'recall': 0.410958904109589, 'f1-score': 0.5309734513274337, 'support': 73}, 'good': {'precision': 0.73125, 'recall': 0.9212598425196851, 'f1-score': 0.8153310104529616, 'support': 127}, 'accuracy': 0.735, 'macro avg': {'precision': 0.740625, 'recall': 0.666109373314637, 'f1-score': 0.6731522308901976, 'support': 200}, 'weighted avg': {'precision': 0.7380937499999999, 'recall': 0.735, 'f1-score': 0.711540501372144, 'support': 200}}} 
+
+Cleaning improved the overall score 
+
+
+

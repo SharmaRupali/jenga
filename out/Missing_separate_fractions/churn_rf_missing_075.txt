@@ -1,0 +1,4 @@
+Dataset: churn
+Found 4 categorical and 16 numeric features 
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits

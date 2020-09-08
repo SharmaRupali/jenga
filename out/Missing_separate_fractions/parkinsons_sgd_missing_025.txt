@@ -1,0 +1,144 @@
+Dataset: parkinsons
+Found 0 categorical and 22 numeric features 
+
+Fitting 5 folds for each of 36 candidates, totalling 180 fits
+
+Generating corrupted training data on 39 rows... 
+
+	perturbation: MissingValues: {'column': 'V22', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V9', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V6', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V14', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V5', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V16', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V15', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V7', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V22', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V13', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V7', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V7', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V9', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V9', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V20', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V19', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V2', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V5', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V20', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V15', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V18', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V6', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V13', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V5', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V14', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V20', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V14', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V6', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V13', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V2', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V6', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V15', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V22', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V22', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V14', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V8', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V18', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V5', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V16', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V6', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V21', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V13', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V12', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V22', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V4', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V9', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V13', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V10', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V15', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'V3', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V16', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V17', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V18', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V11', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V1', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'V9', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'V20', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+
+Applying cleaners... 
+
+PPP score no cleaning: {'roc_auc_acore': 0.8333333333333333, 'classification_report': {'1': {'precision': 0.6363636363636364, 'recall': 0.5833333333333334, 'f1-score': 0.6086956521739131, 'support': 12}, '2': {'precision': 0.8214285714285714, 'recall': 0.8518518518518519, 'f1-score': 0.8363636363636364, 'support': 27}, 'accuracy': 0.7692307692307693, 'macro avg': {'precision': 0.7288961038961039, 'recall': 0.7175925925925926, 'f1-score': 0.7225296442687748, 'support': 39}, 'weighted avg': {'precision': 0.7644855144855145, 'recall': 0.7692307692307693, 'f1-score': 0.7663119489206446, 'support': 39}}}
+PPP scores with cleaning: 
+
+Outlier detection method: NoOutlierDetection, Outlier Detection Score: {'Precision': 0.38461538461538464, 'Recall': 0.5, 'F1-score': 0.4347826086956522, 'Accuracy': 0.7692307692307693}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.0015072454004856953}
+Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.8734567901234567, 'classification_report': {'1': {'precision': 0.6363636363636364, 'recall': 0.5833333333333334, 'f1-score': 0.6086956521739131, 'support': 12}, '2': {'precision': 0.8214285714285714, 'recall': 0.8518518518518519, 'f1-score': 0.8363636363636364, 'support': 27}, 'accuracy': 0.7692307692307693, 'macro avg': {'precision': 0.7288961038961039, 'recall': 0.7175925925925926, 'f1-score': 0.7225296442687748, 'support': 39}, 'weighted avg': {'precision': 0.7644855144855145, 'recall': 0.7692307692307693, 'f1-score': 0.7663119489206446, 'support': 39}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.8461538461538461, 'Recall': 0.9333333333333333, 'F1-score': 0.8733766233766234, 'Accuracy': 0.8974358974358975}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.004586076415466153}
+Cleaner: (PyODKNNOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.808641975308642, 'classification_report': {'1': {'precision': 0.5555555555555556, 'recall': 0.4166666666666667, 'f1-score': 0.4761904761904762, 'support': 12}, '2': {'precision': 0.7666666666666667, 'recall': 0.8518518518518519, 'f1-score': 0.8070175438596491, 'support': 27}, 'accuracy': 0.717948717948718, 'macro avg': {'precision': 0.6611111111111112, 'recall': 0.6342592592592593, 'f1-score': 0.6416040100250626, 'support': 39}, 'weighted avg': {'precision': 0.7017094017094018, 'recall': 0.717948717948718, 'f1-score': 0.705224599961442, 'support': 39}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.8461538461538461, 'Recall': 0.9333333333333333, 'F1-score': 0.8733766233766234, 'Accuracy': 0.8974358974358975}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.0014240413953958662}
+Cleaner: (PyODKNNOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.8549382716049383, 'classification_report': {'1': {'precision': 0.5833333333333334, 'recall': 0.5833333333333334, 'f1-score': 0.5833333333333334, 'support': 12}, '2': {'precision': 0.8148148148148148, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 27}, 'accuracy': 0.7435897435897436, 'macro avg': {'precision': 0.6990740740740741, 'recall': 0.6990740740740741, 'f1-score': 0.6990740740740741, 'support': 39}, 'weighted avg': {'precision': 0.7435897435897436, 'recall': 0.7435897435897436, 'f1-score': 0.7435897435897436, 'support': 39}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7045454545454546, 'Recall': 0.7833333333333333, 'F1-score': 0.6520247083047357, 'Accuracy': 0.6666666666666666}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.007371387496729629}
+Cleaner: (PyODIsolationForestOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.7993827160493827, 'classification_report': {'1': {'precision': 1.0, 'recall': 0.08333333333333333, 'f1-score': 0.15384615384615385, 'support': 12}, '2': {'precision': 0.7105263157894737, 'recall': 1.0, 'f1-score': 0.8307692307692308, 'support': 27}, 'accuracy': 0.717948717948718, 'macro avg': {'precision': 0.8552631578947368, 'recall': 0.5416666666666666, 'f1-score': 0.49230769230769234, 'support': 39}, 'weighted avg': {'precision': 0.7995951417004048, 'recall': 0.717948717948718, 'f1-score': 0.6224852071005917, 'support': 39}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7142857142857143, 'Recall': 0.8, 'F1-score': 0.6749999999999999, 'Accuracy': 0.6923076923076923}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.0051060112863184955}
+Cleaner: (PyODIsolationForestOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.7839506172839505, 'classification_report': {'1': {'precision': 0.5384615384615384, 'recall': 0.5833333333333334, 'f1-score': 0.5599999999999999, 'support': 12}, '2': {'precision': 0.8076923076923077, 'recall': 0.7777777777777778, 'f1-score': 0.7924528301886792, 'support': 27}, 'accuracy': 0.717948717948718, 'macro avg': {'precision': 0.6730769230769231, 'recall': 0.6805555555555556, 'f1-score': 0.6762264150943396, 'support': 39}, 'weighted avg': {'precision': 0.7248520710059171, 'recall': 0.717948717948718, 'f1-score': 0.7209288824383163, 'support': 39}}}
+
+Outlier detection method: AutoGluonOutlierDetection, Outlier Detection Score: {'Precision': 0.3783783783783784, 'Recall': 0.4666666666666667, 'F1-score': 0.417910447761194, 'Accuracy': 0.717948717948718}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 0.0024984047635135138}
+Cleaner: (AutoGluonOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.8672839506172839, 'classification_report': {'1': {'precision': 0.5833333333333334, 'recall': 0.5833333333333334, 'f1-score': 0.5833333333333334, 'support': 12}, '2': {'precision': 0.8148148148148148, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 27}, 'accuracy': 0.7435897435897436, 'macro avg': {'precision': 0.6990740740740741, 'recall': 0.6990740740740741, 'f1-score': 0.6990740740740741, 'support': 39}, 'weighted avg': {'precision': 0.7435897435897436, 'recall': 0.7435897435897436, 'f1-score': 0.7435897435897436, 'support': 39}}}
+
+Best cleaning method:
+Cleaning score: Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.8734567901234567, 'classification_report': {'1': {'precision': 0.6363636363636364, 'recall': 0.5833333333333334, 'f1-score': 0.6086956521739131, 'support': 12}, '2': {'precision': 0.8214285714285714, 'recall': 0.8518518518518519, 'f1-score': 0.8363636363636364, 'support': 27}, 'accuracy': 0.7692307692307693, 'macro avg': {'precision': 0.7288961038961039, 'recall': 0.7175925925925926, 'f1-score': 0.7225296442687748, 'support': 39}, 'weighted avg': {'precision': 0.7644855144855145, 'recall': 0.7692307692307693, 'f1-score': 0.7663119489206446, 'support': 39}}} 
+
+Cleaning improved the overall score 
+
+
+

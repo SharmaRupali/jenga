@@ -1,0 +1,144 @@
+Dataset: heart-statlog
+Found 0 categorical and 13 numeric features 
+
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+
+Generating corrupted training data on 54 rows... 
+
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'maximum_heart_rate_achieved', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'maximum_heart_rate_achieved', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'oldpeak', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'oldpeak', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'oldpeak', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'maximum_heart_rate_achieved', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_blood_pressure', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'exercise_induced_angina', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'maximum_heart_rate_achieved', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'chest', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'fasting_blood_sugar', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'slope', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'serum_cholestoral', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'number_of_major_vessels', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'resting_electrocardiographic_results', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'thal', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MAR'}
+	perturbation: MissingValues: {'column': 'sex', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+	perturbation: MissingValues: {'column': 'maximum_heart_rate_achieved', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MNAR'}
+	perturbation: MissingValues: {'column': 'age', 'fraction': 0.25, 'na_value': nan, 'missingness': 'MCAR'}
+
+Applying cleaners... 
+
+PPP score no cleaning: {'roc_auc_acore': 0.926896551724138, 'classification_report': {'absent': {'precision': 0.7586206896551724, 'recall': 0.88, 'f1-score': 0.8148148148148148, 'support': 25}, 'present': {'precision': 0.88, 'recall': 0.7586206896551724, 'f1-score': 0.8148148148148148, 'support': 29}, 'accuracy': 0.8148148148148148, 'macro avg': {'precision': 0.8193103448275862, 'recall': 0.8193103448275862, 'f1-score': 0.8148148148148148, 'support': 54}, 'weighted avg': {'precision': 0.8238058748403576, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 54}}}
+PPP scores with cleaning: 
+
+Outlier detection method: NoOutlierDetection, Outlier Detection Score: {'Precision': 0.37037037037037035, 'Recall': 0.5, 'F1-score': 0.425531914893617, 'Accuracy': 0.7407407407407407}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 25.96491182111467}
+Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.9310344827586208, 'classification_report': {'absent': {'precision': 0.7586206896551724, 'recall': 0.88, 'f1-score': 0.8148148148148148, 'support': 25}, 'present': {'precision': 0.88, 'recall': 0.7586206896551724, 'f1-score': 0.8148148148148148, 'support': 29}, 'accuracy': 0.8148148148148148, 'macro avg': {'precision': 0.8193103448275862, 'recall': 0.8193103448275862, 'f1-score': 0.8148148148148148, 'support': 54}, 'weighted avg': {'precision': 0.8238058748403576, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 54}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.85, 'Recall': 0.925, 'F1-score': 0.8712241653418124, 'Accuracy': 0.8888888888888888}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 64.3143655057664}
+Cleaner: (PyODKNNOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.8979310344827587, 'classification_report': {'absent': {'precision': 0.7666666666666667, 'recall': 0.92, 'f1-score': 0.8363636363636363, 'support': 25}, 'present': {'precision': 0.9166666666666666, 'recall': 0.7586206896551724, 'f1-score': 0.830188679245283, 'support': 29}, 'accuracy': 0.8333333333333334, 'macro avg': {'precision': 0.8416666666666667, 'recall': 0.8393103448275863, 'f1-score': 0.8332761578044596, 'support': 54}, 'weighted avg': {'precision': 0.8472222222222222, 'recall': 0.8333333333333334, 'f1-score': 0.833047455688965, 'support': 54}}}
+
+Outlier detection method: PyODKNNOutlierDetection, Outlier Detection Score: {'Precision': 0.85, 'Recall': 0.925, 'F1-score': 0.8712241653418124, 'Accuracy': 0.8888888888888888}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 50.22962237330729}
+Cleaner: (PyODKNNOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.8951724137931035, 'classification_report': {'absent': {'precision': 0.7333333333333333, 'recall': 0.88, 'f1-score': 0.8, 'support': 25}, 'present': {'precision': 0.875, 'recall': 0.7241379310344828, 'f1-score': 0.7924528301886793, 'support': 29}, 'accuracy': 0.7962962962962963, 'macro avg': {'precision': 0.8041666666666667, 'recall': 0.8020689655172414, 'f1-score': 0.7962264150943397, 'support': 54}, 'weighted avg': {'precision': 0.8094135802469135, 'recall': 0.7962962962962963, 'f1-score': 0.7959468902865129, 'support': 54}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7258064516129032, 'Recall': 0.7875, 'F1-score': 0.6761904761904762, 'Accuracy': 0.6851851851851852}
+Imputation method: MeanModeImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 83.4045333377788}
+Cleaner: (PyODIsolationForestOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.9158620689655173, 'classification_report': {'absent': {'precision': 0.7333333333333333, 'recall': 0.88, 'f1-score': 0.8, 'support': 25}, 'present': {'precision': 0.875, 'recall': 0.7241379310344828, 'f1-score': 0.7924528301886793, 'support': 29}, 'accuracy': 0.7962962962962963, 'macro avg': {'precision': 0.8041666666666667, 'recall': 0.8020689655172414, 'f1-score': 0.7962264150943397, 'support': 54}, 'weighted avg': {'precision': 0.8094135802469135, 'recall': 0.7962962962962963, 'f1-score': 0.7959468902865129, 'support': 54}}}
+
+Outlier detection method: PyODIsolationForestOutlierDetection, Outlier Detection Score: {'Precision': 0.7121212121212122, 'Recall': 0.7625, 'F1-score': 0.6421346355074992, 'Accuracy': 0.6481481481481481}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 93.86914469258421}
+Cleaner: (PyODIsolationForestOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.9172413793103448, 'classification_report': {'absent': {'precision': 0.7586206896551724, 'recall': 0.88, 'f1-score': 0.8148148148148148, 'support': 25}, 'present': {'precision': 0.88, 'recall': 0.7586206896551724, 'f1-score': 0.8148148148148148, 'support': 29}, 'accuracy': 0.8148148148148148, 'macro avg': {'precision': 0.8193103448275862, 'recall': 0.8193103448275862, 'f1-score': 0.8148148148148148, 'support': 54}, 'weighted avg': {'precision': 0.8238058748403576, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 54}}}
+
+Outlier detection method: AutoGluonOutlierDetection, Outlier Detection Score: {'Precision': 0.3541666666666667, 'Recall': 0.425, 'F1-score': 0.38636363636363635, 'Accuracy': 0.6296296296296297}
+Imputation method: AutoGluonImputation, Imputation Score: {'Precision': nan, 'Recall': nan, 'F1-score': nan, 'Accuracy': nan, 'Mean Squared Error': 45.035123651067636}
+Cleaner: (AutoGluonOutlierDetection, AutoGluonImputation): {'roc_auc_acore': 0.9213793103448277, 'classification_report': {'absent': {'precision': 0.7586206896551724, 'recall': 0.88, 'f1-score': 0.8148148148148148, 'support': 25}, 'present': {'precision': 0.88, 'recall': 0.7586206896551724, 'f1-score': 0.8148148148148148, 'support': 29}, 'accuracy': 0.8148148148148148, 'macro avg': {'precision': 0.8193103448275862, 'recall': 0.8193103448275862, 'f1-score': 0.8148148148148148, 'support': 54}, 'weighted avg': {'precision': 0.8238058748403576, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 54}}}
+
+Best cleaning method:
+Cleaning score: Cleaner: (NoOutlierDetection, MeanModeImputation): {'roc_auc_acore': 0.9310344827586208, 'classification_report': {'absent': {'precision': 0.7586206896551724, 'recall': 0.88, 'f1-score': 0.8148148148148148, 'support': 25}, 'present': {'precision': 0.88, 'recall': 0.7586206896551724, 'f1-score': 0.8148148148148148, 'support': 29}, 'accuracy': 0.8148148148148148, 'macro avg': {'precision': 0.8193103448275862, 'recall': 0.8193103448275862, 'f1-score': 0.8148148148148148, 'support': 54}, 'weighted avg': {'precision': 0.8238058748403576, 'recall': 0.8148148148148148, 'f1-score': 0.8148148148148148, 'support': 54}}} 
+
+Cleaning improved the overall score 
+
+
+
