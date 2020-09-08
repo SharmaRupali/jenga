@@ -98,10 +98,10 @@ class AutoGluonImputation(Imputation):
 
         if not predictors:
             for col in self.categorical_columns:
-                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass')
+                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass', verbosity=0)
 
             for col in self.numerical_columns:
-                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression')
+                predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression', verbosity=0)
 
 
         for col in df_corrupted.columns:
