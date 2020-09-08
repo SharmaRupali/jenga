@@ -53,7 +53,7 @@ class Clean:
         return f"{self.__class__.__name__}: {self.__dict__}"
 
 
-    def get_cleaned(self, df_train, df_corrupted):
+    def get_cleaned(self, df_train, df_test, df_corrupted, cols_perturbed):
 
         print("\nApplying cleaners... \n")
         
@@ -64,42 +64,46 @@ class Clean:
         summary_cleaners = []
         
         print(f"PPP scores with cleaning: ")
-        cleaner_scores_ppp = []
+        cleaning_scores_ppp = []
         for cleaner in self.cleaners:
-            df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted)
-            cleaner_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned)
-            # print(f"Outlier detection method: {cleaner.outlier_detection}")
-            # print(f"Imputation method: {cleaner.imputation}")
-            print(f"{cleaner}: {cleaner_score}")
-            cleaner_scores_ppp.append(cleaner_score)
+            df_outliers, df_cleaned = cleaner.apply_cleaner(df_train, df_corrupted)
+            outlier_detection_score, imputation_score = cleaner.cleaner_scores(df_test, df_corrupted, df_outliers, df_cleaned, cols_perturbed)
+            print(f"\nOutlier detection method: {cleaner.outlier_detection}, Outlier Detection Score: {outlier_detection_score}")
+            print(f"Imputation method: {cleaner.imputation}, Imputation Score: {imputation_score}")
 
-            summ_clean = {"Outlier detection method": cleaner.outlier_detection, "Imputation method": cleaner.imputation, "PPP score with cleaning": cleaner_score}
+            cleaning_score = self.ppp.predict_score_ppp(self.ppp_model, df_cleaned) ## these scores are for the affect of cleaning on the downstream ml models
+            
+            print(f"{cleaner}: {cleaning_score}")
+            cleaning_scores_ppp.append(cleaning_score)
+
+            summ_clean = {
+                "Outlier detection method": cleaner.outlier_detection, 
+                "Outlier Detection Score": outlier_detection_score, 
+                "Imputation method": cleaner.imputation, 
+                "Imputation Score": imputation_score, 
+                "PPP score with cleaning": cleaning_score
+            }
             summary_cleaners.append(summ_clean) ## saving results for returning individuals too
             
-        
+        ## finding the best score of the affect of cleaning on the downstream ml models
         roc_scores_for_best = []
-        for i in range(len(cleaner_scores_ppp)):
-            roc_scores_for_best.append(cleaner_scores_ppp[i]["roc_auc_acore"])
+        for i in range(len(cleaning_scores_ppp)):
+            roc_scores_for_best.append(cleaning_scores_ppp[i]["roc_auc_acore"])
 
         best_cleaning_idx = pd.Series(roc_scores_for_best).idxmax()
-        best_cleaning_score = cleaner_scores_ppp[best_cleaning_idx]
+        best_cleaning_score = cleaning_scores_ppp[best_cleaning_idx]
 
-        df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted)
+        df_outliers, df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted)
         print(f"\nBest cleaning method:")
         print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n")
 
         if best_cleaning_score["roc_auc_acore"] > score_no_cleaning["roc_auc_acore"]:
             print("Cleaning improved the overall score \n\n\n")
-            # df_cleaned = self.cleaners[best_cleaning_idx].apply_cleaner(df_train, df_corrupted, self.categorical_columns, self.numerical_columns)
-            # print(f"Best cleaning method:")
-            # # print(f"Outlier detection method: {self.cleaners[best_cleaning_idx].outlier_detection}")
-            # # print(f"Imputation method: {self.cleaners[best_cleaning_idx].imputation}")
-            # print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n\n\n\n")
         else:
             print("Cleaning didnt't improve the overall score \n\n\n")
             
-        return df_cleaned, score_no_cleaning, best_cleaning_score, cleaner_scores_ppp, summary_cleaners
+        return df_outliers, df_cleaned, score_no_cleaning, best_cleaning_score, cleaning_scores_ppp, summary_cleaners
     
     
-    def __call__(self, df_train, df_corrupted):
-        return self.get_cleaned(df_train, df_corrupted)
+    def __call__(self, df_train, df_test, df_corrupted, cols_perturbed):
+        return self.get_cleaned(df_train, df_test, df_corrupted, cols_perturbed)

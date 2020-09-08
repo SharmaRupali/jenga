@@ -70,6 +70,10 @@ class NoOutlierDetection(OutlierDetection):
     
     def fit_transform(self, df_train, df_corrupted):
         df_outliers = df_corrupted.copy()
+
+        ## add a respective outlier col for each col
+        for col in df_corrupted.columns:
+            df_outliers[col + "_outlier"] = 0
         
         return df_outliers, self.predictors, self.predictable_cols
     
@@ -108,7 +112,7 @@ class PyodGeneralOutlierDetection(OutlierDetection):
                 ## add a respective outlier col for each col
                 df_outliers[col + "_outlier"] = ''
                 df_outliers.loc[non_nan_idx, col + "_outlier"] = y_pred ## 0: inlier, 1: outlier
-                df_outliers.loc[nan_idx, col + "_outlier"] = 0
+                df_outliers.loc[nan_idx, col + "_outlier"] = 1
                 
         return df_outliers
 
@@ -133,7 +137,7 @@ class PyODKNNOutlierDetection(PyodGeneralOutlierDetection):
                 if df_outliers.loc[i, col + "_outlier"] == 1:
                     df_outliers.loc[i, col] = np.nan
 
-        df_outliers = df_outliers[df_corrupted.columns]
+        # df_outliers = df_outliers[df_corrupted.columns]
         
         return df_outliers, self.predictors, self.predictable_cols
     
@@ -158,7 +162,7 @@ class PyODIsolationForestOutlierDetection(PyodGeneralOutlierDetection):
                 if df_outliers.loc[i, col + "_outlier"] == 1:
                     df_outliers.loc[i, col] = np.nan
 
-        df_outliers = df_outliers[df_corrupted.columns]
+        # df_outliers = df_outliers[df_corrupted.columns]
         
         return df_outliers, self.predictors, self.predictable_cols
     
@@ -179,7 +183,7 @@ class AutoGluonOutlierDetection(OutlierDetection):
         df_train, df_test = train_test_split(self.df_train, test_size=0.2)
 
         for col in self.categorical_columns:
-            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass')
+            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass', verbosity=0)
 
             y_test = df_test[col].dropna() # take only the non-nan records # test_data? OR split the train_data again into train and test
             y_pred = self.predictors[col].predict(df_test.drop([col], axis=1)) # drop the actual column before predicting
@@ -198,7 +202,7 @@ class AutoGluonOutlierDetection(OutlierDetection):
 
 
         for col in self.numerical_columns:
-            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression')
+            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression', verbosity=0)
 
             y_test = df_test[col].dropna() # take only the non-nan records # test_data? OR split the train_data again into train and test
             y_pred = self.predictors[col].predict(df_test.drop([col], axis=1)) # drop the actual column before predicting
@@ -209,10 +213,10 @@ class AutoGluonOutlierDetection(OutlierDetection):
                 self.predictable_cols[col] = perf['root_mean_squared_error']
 
 
-        print(f"Categorical precision threshold: {categorical_precision_threshold}")
-        print(f"Numerical Std Error threshold: {numerical_std_error_threshold}")
-        print(f"Predictors: {self.predictors}")
-        print(f"Predictable Columns: {self.predictable_cols}")
+        # print(f"Categorical precision threshold: {categorical_precision_threshold}")
+        # print(f"Numerical Std Error threshold: {numerical_std_error_threshold}")
+        # print(f"Predictors: {self.predictors}")
+        # print(f"Predictable Columns: {self.predictable_cols}")
 
 
     def fit_transform(self, df_train, df_corrupted):
@@ -252,7 +256,14 @@ class AutoGluonOutlierDetection(OutlierDetection):
             for i in presumably_wrong[col]:
                 df_outliers.loc[i, col] = np.nan
 
-            print(f"Column {col}: Num NaNs: Before: {num_nans}, Now: {df_outliers[col].isnull().sum()}")
+            # print(f"Column {col}: Num NaNs: Before: {num_nans}, Now: {df_outliers[col].isnull().sum()}")
+
+        for col in df_corrupted.columns:
+            df_outliers[col + "_outlier"] = 0
+
+        for col in self.predictable_cols:
+            for i in presumably_wrong[col]:
+                df_outliers.loc[i, col + "_outlier"] = 1
 
         return df_outliers, self.predictors, self.predictable_cols
     
