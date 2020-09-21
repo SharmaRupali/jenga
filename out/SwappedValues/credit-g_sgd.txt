@@ -1,5 +1,0 @@
-............................................. ITERATION .............................................
-Dataset: credit-g
-Found 13 categorical and 7 numeric features 
-
-Fitting 5 folds for each of 36 candidates, totalling 180 fits
