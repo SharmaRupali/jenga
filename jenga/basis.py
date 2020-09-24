@@ -12,13 +12,8 @@ from sklearn.model_selection import train_test_split
 # class for loading the datasets, and getting the training and test sets
 class Dataset:
 
-    def __init__(self, seed, dataset_name):
-        
-        ## fix random seeds for reproducibility
-        random.seed(seed)
-        np.random.seed(seed)
-        
-        
+    def __init__(self, dataset_name):
+              
         data = openml.datasets.get_dataset(dataset_name)
         
         ## summary

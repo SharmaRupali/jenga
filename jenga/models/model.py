@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report, roc_auc_score, accuracy_score
 
 class Model:
     
-    def __init__(self, seed,
+    def __init__(self,
                  train_data, 
                  train_labels, 
                  test_data, 
@@ -17,10 +17,6 @@ class Model:
                  pipeline,
                  learner, 
                  param_grid):
-        
-        ## fix random seeds for reproducibility
-        random.seed(seed)
-        np.random.seed(seed)
         
         ## train and test data and labels
         self.train_data = train_data
