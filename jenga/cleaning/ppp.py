@@ -74,8 +74,8 @@ class PipelinePerformancePrediction:
         
         # corruption perturbations to apply
         corr_perturbations = Perturbation(self.categorical_columns, self.numerical_columns)
-        for _ in range(num_repetitions):
-            df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions, fraction)
+        # for _ in range(num_repetitions):
+        df_corrupted, perturbations, cols_perturbed, summary_col_corrupt = corr_perturbations.apply_perturbation(df, corruptions, fraction)
         
         return df_corrupted, perturbations, cols_perturbed, summary_col_corrupt
         
