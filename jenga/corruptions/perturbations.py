@@ -2,13 +2,13 @@ import random
 import numpy as np
 from collections import defaultdict
 
-from jenga.corruptions.generic import MissingValues, SwappedValues
+from jenga.corruptions.generic import MissingValues, SwappedValues, CategoricalShift
 from jenga.corruptions.numerical import Scaling, GaussianNoise
 
 
 DEFAULT_CORRUPTIONS = {
     'missing': [MissingValues],
-    'categorical': [SwappedValues],
+    'categorical': [SwappedValues, CategoricalShift],
     'numeric': [Scaling, GaussianNoise]
 }
 
@@ -32,21 +32,6 @@ class Perturbation:
 
         summary_col_corrupt = defaultdict(list)
 
-        ## removing the corrsponding corruption from the list if not application
-        ## UPDATE: check if the corruption type is in the corruptions list and only then remove if appilcable
-        if len(self.categorical_columns) == 0:
-            if SwappedValues in corruptions:
-                print("Can't apply the SwappedValues corruption because there are no categorical columns. \n\n")
-                del corruptions[corruptions.index(SwappedValues)]
-        elif len(self.numerical_columns) == 0:
-            if Scaling in corruptions:
-                print("Can't apply the Scaling corruption because there are no numerical columns. \n\n")
-                del corruptions[corruptions.index(Scaling)]
-            elif GaussianNoise in corruptions:
-                print("Can't apply the GaussianNoise corruption because there are no numerical columns. \n\n")
-                del corruptions[corruptions.index(GaussianNoise)]
-
-        
         for corruption in corruptions: 
             perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
             print(f"\tperturbation: {perturbation}")
@@ -68,22 +53,18 @@ class Perturbation:
 
 
     def get_perturbation(self, corruption, fraction):
-        ## check which type of corruption is given
-        perturb_type = ''
-        for key, val in DEFAULT_CORRUPTIONS.items():
-            for elem in val:
-                if elem == corruption:
-                    perturb_type = key
+        missingness = random.choice(['MCAR', 'MAR', 'MNAR'])
+        sampling = missingness
 
-
-        if perturb_type is 'numeric':
+        col_to_perturb = ''
+        if corruption in [Scaling, GaussianNoise]:
             col_to_perturb = random.choice(self.numerical_columns)
-            return corruption(col_to_perturb, fraction), [col_to_perturb]
-        elif perturb_type is 'categorical':
-            col_to_perturb = random.sample(self.categorical_columns, 2)
-            return corruption(col_to_perturb[0], col_to_perturb[1], fraction), col_to_perturb
-        elif perturb_type is 'missing':
-            missigness = random.choice(['MCAR', 'MAR', 'MNAR'])
+        elif corruption == CategoricalShift:
+            col_to_perturb = random.choice(self.categorical_columns)
+        else:
             col_to_perturb = random.choice(self.numerical_columns + self.categorical_columns)
-            na_value = np.nan
-            return corruption(col_to_perturb, fraction, na_value, missigness), [col_to_perturb]
+
+        if corruption == MissingValues:
+            return corruption(column=col_to_perturb, fraction=fraction, missingness=missingness), [col_to_perturb]
+        else:
+            return corruption(column=col_to_perturb, fraction=fraction, sampling=missingness), [col_to_perturb]
