@@ -101,6 +101,11 @@ class Cleaner:
             df_test_out.loc[outiers_man_ind, col + "_outlier"] = 1 ## outliers
             df_test_out.loc[non_outliers_man_ind, col + "_outlier"] = 0 ## not outliers
 
+            ## explicitly changing the datatype of the outlier columns: classification_report doesn't take different datatypes
+            ## even though the values are just 1s and 0s, they are sometimes read as ints and other times as floats 
+            df_test_out[col + "_outlier"] = df_test_out[col + "_outlier"].astype('int')
+            df_outliers[col + "_outlier"] = df_outliers[col + "_outlier"].astype('int')
+
             classif_reports[col] = classification_report(df_test_out[col + "_outlier"], df_outliers[col + "_outlier"], output_dict=True)
 
             labels = [k for k in classif_reports[col] if k not in ['accuracy', 'macro avg', 'weighted avg']]
