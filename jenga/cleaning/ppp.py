@@ -12,7 +12,7 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner, param_grid):
+    def __init__(self, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner=None, param_grid=None):
         
         self.train_data = train_data
         self.train_labels = train_labels

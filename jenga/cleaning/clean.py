@@ -88,7 +88,7 @@ class Clean:
         ## finding the best score of the affect of cleaning on the downstream ml models
         roc_scores_for_best = []
         for i in range(len(cleaning_scores_ppp)):
-            roc_scores_for_best.append(cleaning_scores_ppp[i]["roc_auc_acore"])
+            roc_scores_for_best.append(cleaning_scores_ppp[i]["roc_auc_score"])
 
         best_cleaning_idx = pd.Series(roc_scores_for_best).idxmax()
         best_cleaning_score = cleaning_scores_ppp[best_cleaning_idx]
@@ -97,7 +97,7 @@ class Clean:
         print(f"\nBest cleaning method:")
         print(f"Cleaning score: {self.cleaners[best_cleaning_idx]}: {best_cleaning_score} \n")
 
-        if best_cleaning_score["roc_auc_acore"] > score_no_cleaning["roc_auc_acore"]:
+        if best_cleaning_score["roc_auc_score"] > score_no_cleaning["roc_auc_score"]:
             print("Cleaning improved the overall score \n\n\n")
         else:
             print("Cleaning didnt't improve the overall score \n\n\n")
