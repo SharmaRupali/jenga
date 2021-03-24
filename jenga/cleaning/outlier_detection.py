@@ -6,8 +6,10 @@ from sklearn.model_selection import train_test_split
 
 from pyod.models.knn import KNN
 from pyod.models.iforest import IForest
+from pyod.models.pca import PCA
+from pyod.models.cblof import CBLOF
+from pyod.models.sos import SOS
 
-from autogluon import TabularPrediction as task
 
 
 class OutlierDetection:
@@ -136,8 +138,6 @@ class PyODKNNOutlierDetection(PyodGeneralOutlierDetection):
             for i in df_outliers.index:
                 if df_outliers.loc[i, col + "_outlier"] == 1:
                     df_outliers.loc[i, col] = np.nan
-
-        # df_outliers = df_outliers[df_corrupted.columns]
         
         return df_outliers, self.predictors, self.predictable_cols
     
@@ -161,8 +161,6 @@ class PyODIsolationForestOutlierDetection(PyodGeneralOutlierDetection):
             for i in df_outliers.index:
                 if df_outliers.loc[i, col + "_outlier"] == 1:
                     df_outliers.loc[i, col] = np.nan
-
-        # df_outliers = df_outliers[df_corrupted.columns]
         
         return df_outliers, self.predictors, self.predictable_cols
     
@@ -172,99 +170,67 @@ class PyODIsolationForestOutlierDetection(PyodGeneralOutlierDetection):
 
 
 
-class AutoGluonOutlierDetection(OutlierDetection):
-
-    def __init__(self, df_train, df_corrupted, categorical_columns, numerical_columns, categorical_precision_threshold, numerical_std_error_threshold):
-        OutlierDetection.__init__(self, df_train, df_corrupted, categorical_columns, numerical_columns, categorical_precision_threshold, numerical_std_error_threshold)
-
-        self.df_train = self.cat_cols_to_str(self.df_train)
-
-
-        df_train, df_test = train_test_split(self.df_train, test_size=0.2)
-
-        for col in self.categorical_columns:
-            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='multiclass', verbosity=0)
-
-            y_test = df_test[col].dropna() # take only the non-nan records # test_data? OR split the train_data again into train and test
-            y_pred = self.predictors[col].predict(df_test.drop([col], axis=1)) # drop the actual column before predicting
-
-            perf = self.predictors[col].evaluate_predictions(y_test, y_pred, auxiliary_metrics=True)
-
-            labels = [k for k in perf['classification_report'].keys() if k not in ['accuracy', 'macro avg', 'weighted avg']]
-
-            high_precision_labels = []
-            for label in labels:
-                if perf['classification_report'][label]['precision'] > self.categorical_precision_threshold:
-                    high_precision_labels.append(label)
-
-            if high_precision_labels:
-                self.predictable_cols[col] = high_precision_labels
-
-
-        for col in self.numerical_columns:
-            self.predictors[col] = task.fit(train_data=df_train, label=col, problem_type='regression', verbosity=0)
-
-            y_test = df_test[col].dropna() # take only the non-nan records # test_data? OR split the train_data again into train and test
-            y_pred = self.predictors[col].predict(df_test.drop([col], axis=1)) # drop the actual column before predicting
-
-            perf = self.predictors[col].evaluate_predictions(y_test, y_pred, auxiliary_metrics=True)
-
-            if perf['root_mean_squared_error'] < self.numerical_std_error_threshold * y_test.std():
-                self.predictable_cols[col] = perf['root_mean_squared_error']
-
-
-        # print(f"Categorical precision threshold: {categorical_precision_threshold}")
-        # print(f"Numerical Std Error threshold: {numerical_std_error_threshold}")
-        # print(f"Predictors: {self.predictors}")
-        # print(f"Predictable Columns: {self.predictable_cols}")
-
-
+class PyODPCAOutlierDetection(PyodGeneralOutlierDetection):
+    
     def fit_transform(self, df_train, df_corrupted):
-        df_outliers = self.cat_cols_to_str(df_corrupted.copy())
+        pyod_model = PCA(contamination=0.25) # n_components = min(n_samples, n_features) default  # n_selected_components = None
 
-        presumably_wrong = {}
+        df_outliers_num = self.num_out_detect(df_train, df_corrupted, pyod_model)
+        df_outliers_cat = self.cat_out_detect(df_train, df_corrupted)
 
-        for col in self.predictable_cols:
-            y_pred = self.predictors[col].predict(df_outliers)
-            y_test = df_outliers[col]
-
-            auxiliary_df_test_pred = pd.DataFrame(y_test)
-            auxiliary_df_test_pred["pred"] = y_pred
-
-            num_nans = df_outliers[col].isnull().sum()
-
-            if col in self.categorical_columns:
-                presumably_wrong_aux = []
-                for i in auxiliary_df_test_pred.index:
-                    if any(np.isin(self.predictable_cols[col], auxiliary_df_test_pred.loc[i, "pred"])) & (auxiliary_df_test_pred.loc[i, col] != auxiliary_df_test_pred.loc[i, "pred"]):
-                        presumably_wrong_aux.append(i)
-
-                presumably_wrong[col] = np.array(presumably_wrong_aux)
-
-
-            if col in self.numerical_columns:
-                presumably_wrong_aux = []
-                predictor_rmse = self.predictable_cols[col]
-                for i in auxiliary_df_test_pred.index:
-                    rmse = np.sqrt((auxiliary_df_test_pred.loc[i, "pred"] - auxiliary_df_test_pred.loc[i, col]) ** 2)
-                    if rmse > predictor_rmse * self.numerical_std_error_threshold:
-                        presumably_wrong_aux.append(i)
-
-                presumably_wrong[col] = np.array(presumably_wrong_aux)
-
-
-            for i in presumably_wrong[col]:
-                df_outliers.loc[i, col] = np.nan
-
-            # print(f"Column {col}: Num NaNs: Before: {num_nans}, Now: {df_outliers[col].isnull().sum()}")
+        df_outliers = df_outliers_num.join(df_outliers_cat, how='inner')
 
         for col in df_corrupted.columns:
-            df_outliers[col + "_outlier"] = 0
+            for i in df_outliers.index:
+                if df_outliers.loc[i, col + "_outlier"] == 1:
+                    df_outliers.loc[i, col] = np.nan
+        
+        return df_outliers, self.predictors, self.predictable_cols
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
 
-        for col in self.predictable_cols:
-            for i in presumably_wrong[col]:
-                df_outliers.loc[i, col + "_outlier"] = 1
 
+
+class PyODCBLOFOutlierDetection(PyodGeneralOutlierDetection):
+    
+    def fit_transform(self, df_train, df_corrupted):
+        pyod_model = CBLOF(contamination=0.25) # n_clusters = 8 default
+
+        df_outliers_num = self.num_out_detect(df_train, df_corrupted, pyod_model)
+        df_outliers_cat = self.cat_out_detect(df_train, df_corrupted)
+
+        df_outliers = df_outliers_num.join(df_outliers_cat, how='inner')
+
+        for col in df_corrupted.columns:
+            for i in df_outliers.index:
+                if df_outliers.loc[i, col + "_outlier"] == 1:
+                    df_outliers.loc[i, col] = np.nan
+        
+        return df_outliers, self.predictors, self.predictable_cols
+    
+    
+    def __call__(self, df_train, df_corrupted):
+        return self.fit_transform(df_train, df_corrupted)
+
+
+
+class PyODSOSOutlierDetection(PyodGeneralOutlierDetection):
+    
+    def fit_transform(self, df_train, df_corrupted):
+        pyod_model = SOS(contamination=0.25)
+
+        df_outliers_num = self.num_out_detect(df_train, df_corrupted, pyod_model)
+        df_outliers_cat = self.cat_out_detect(df_train, df_corrupted)
+
+        df_outliers = df_outliers_num.join(df_outliers_cat, how='inner')
+
+        for col in df_corrupted.columns:
+            for i in df_outliers.index:
+                if df_outliers.loc[i, col + "_outlier"] == 1:
+                    df_outliers.loc[i, col] = np.nan
+        
         return df_outliers, self.predictors, self.predictable_cols
     
     
