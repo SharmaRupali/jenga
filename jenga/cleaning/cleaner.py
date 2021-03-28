@@ -22,7 +22,7 @@ class Cleaner:
     
     def apply_cleaner(self, df_train, df_corrupted):
         # outliers
-        df_outliers, predictors, predictable_cols = self.outlier_detection(df_train, df_corrupted)
+        df_outliers, predictors = self.outlier_detection(df_train, df_corrupted)
 
         # impute
         df_imputed = self.imputation(df_train, df_outliers[df_corrupted.columns], predictors)

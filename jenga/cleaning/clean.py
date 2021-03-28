@@ -44,7 +44,9 @@ class Clean:
                                          imputation = imp(df_train,
                                                           df_corrupted,
                                                           self.categorical_columns,
-                                                          self.numerical_columns)
+                                                          self.numerical_columns,
+                                                          self.categorical_precision_threshold,
+                                                          self.numerical_std_error_threshold)
                                         )
                                 )
             
