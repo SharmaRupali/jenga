@@ -11,10 +11,10 @@ from sklearn.metrics import classification_report, roc_auc_score, accuracy_score
 class Model:
     
     def __init__(self,
-                 train_data, 
-                 train_labels, 
-                 test_data, 
-                 test_labels, 
+                 df_train, 
+                 lab_train, 
+                 df_test, 
+                 lab_test, 
                  categorical_columns, 
                  numerical_columns,
                  pipeline,
@@ -22,10 +22,10 @@ class Model:
                  param_grid):
         
         ## train and test data and labels
-        self.train_data = train_data
-        self.train_labels = train_labels
-        self.test_data = test_data
-        self.test_labels = test_labels
+        self.df_train = df_train
+        self.lab_train = lab_train
+        self.df_test = df_test
+        self.lab_test = lab_test
         
         ## information about the column types in the dataset
         self.categorical_columns = categorical_columns
@@ -44,30 +44,30 @@ class Model:
         
 
     # method for training a model on the raw data with preprocessing
-    def fit_model(self, train_data, train_labels):
+    def fit_model(self, df_train, lab_train):
         if self.learner != None:
             grid_search = GridSearchCV(self.pipeline, self.param_grid, scoring='roc_auc', cv=5, verbose=1, n_jobs=-1)
-            model = grid_search.fit(train_data, train_labels)
+            model = grid_search.fit(df_train, lab_train)
         else:
-            train_data["class"] = train_labels
-            model = TabularPredictor(label="class").fit(train_data)
+            df_train["class"] = lab_train
+            model = TabularPredictor(label="class").fit(df_train)
 
         return model
 
 
     # method for computing evaluation metrics
-    def evaluation_metrics(self, model, test_data):
-        y_pred = model.predict(test_data)
+    def evaluation_metrics(self, model, df_test):
+        y_pred = model.predict(df_test)
 
         if self.learner != None:
             eval_scores = {
-                'roc_auc_score': roc_auc_score(self.test_labels, np.transpose(model.predict_proba(test_data))[1]),
-                'classification_report': classification_report(self.test_labels, y_pred, output_dict=True)
+                'roc_auc_score': roc_auc_score(self.lab_test, np.transpose(model.predict_proba(df_test))[1]),
+                'classification_report': classification_report(self.lab_test, y_pred, output_dict=True)
             }
         else:
-            perf = model.evaluate_predictions(y_true=pd.Series(self.test_labels), y_pred=y_pred, auxiliary_metrics=True)
+            perf = model.evaluate_predictions(y_true=pd.Series(self.lab_test), y_pred=y_pred, auxiliary_metrics=True)
             eval_scores = {
-                'roc_auc_score': roc_auc_score(self.test_labels, np.transpose(model.predict_proba(test_data)).to_numpy()[1]),
+                'roc_auc_score': roc_auc_score(self.lab_test, np.transpose(model.predict_proba(df_test)).to_numpy()[1]),
                 'classification_report': perf["classification_report"]
             }
 

@@ -12,12 +12,12 @@ from jenga.corruptions.perturbations import Perturbation
 
 class PipelinePerformancePrediction:
     
-    def __init__(self, train_data, train_labels, test_data, test_labels, categorical_columns, numerical_columns, learner=None, param_grid=None):
+    def __init__(self, df_train, lab_train, df_test, lab_test, categorical_columns, numerical_columns, learner=None, param_grid=None):
         
-        self.train_data = train_data
-        self.train_labels = train_labels
-        self.test_data = test_data
-        self.test_labels = test_labels
+        self.df_train = df_train
+        self.lab_train = lab_train
+        self.df_test = df_test
+        self.lab_test = lab_test
         
         self.categorical_columns = categorical_columns
         self.numerical_columns = numerical_columns
@@ -53,10 +53,10 @@ class PipelinePerformancePrediction:
             
         
         ## get model components
-        self.model_obj = Model(self.train_data, 
-                          self.train_labels, 
-                          self.test_data, 
-                          self.test_labels, 
+        self.model_obj = Model(self.df_train, 
+                          self.lab_train, 
+                          self.df_test, 
+                          self.lab_test, 
                           self.categorical_columns, 
                           self.numerical_columns, 
                           pipeline, 
@@ -82,7 +82,7 @@ class PipelinePerformancePrediction:
         
     def fit_ppp(self, df):
         
-        model = self.model_obj.fit_model(df, self.train_labels)
+        model = self.model_obj.fit_model(df, self.lab_train)
         
         return model
     

@@ -265,34 +265,35 @@ class SklearnOutlierDetection(OutlierDetection):
 
         for col in self.categorical_columns + self.numerical_columns:
             if col in self.categorical_columns:
-                feature_transform = ColumnTransformer(transformers=[
-                    ('categorical_features', categorical_preprocessing, list(set(self.categorical_columns) - {col})),
-                    ('numeric_features', numeric_preprocessing, self.numerical_columns)
-                ])
+                if len(df_train[col].unique()) > 1:
+                    feature_transform = ColumnTransformer(transformers=[
+                        ('categorical_features', categorical_preprocessing, list(set(self.categorical_columns) - {col})),
+                        ('numeric_features', numeric_preprocessing, self.numerical_columns)
+                    ])
 
-                param_grid = {
-                    'learner__n_estimators': [10, 50, 100, 200],
-                }
+                    param_grid = {
+                        'learner__n_estimators': [10, 50, 100, 200],
+                    }
 
-                pipeline = Pipeline([
-                    ('features', feature_transform),
-                    ('learner', GradientBoostingClassifier())
-                ])
+                    pipeline = Pipeline([
+                        ('features', feature_transform),
+                        ('learner', GradientBoostingClassifier())
+                    ])
 
-                search = GridSearchCV(pipeline, param_grid, cv=2, verbose=0, n_jobs=-1)
-                self.predictors[col] = search.fit(df_train, df_train[col])
+                    search = GridSearchCV(pipeline, param_grid, cv=2, verbose=0, n_jobs=-1)
+                    self.predictors[col] = search.fit(df_train, df_train[col])
 
-                print(f'Classifier for col: {col} reached {search.best_score_}')
+                    print(f'Classifier for col: {col} reached {search.best_score_}')
 
-                ## precision-recall curves for finding the likelihood thresholds for minimal precision
-                self.predictors[col].thresholds = {}
-                probas = self.predictors[col].predict_proba(df_test)
+                    ## precision-recall curves for finding the likelihood thresholds for minimal precision
+                    self.predictors[col].thresholds = {}
+                    probas = self.predictors[col].predict_proba(df_test)
 
-                for label_idx, label in enumerate(self.predictors[col].classes_):
-                    prec, rec, threshold = precision_recall_curve(df_test[col]==label, probas[:,label_idx], pos_label=True)
-                    prec = prec.tolist(); rec = rec.tolist(); threshold = threshold.tolist()
-                    threshold_for_min_prec = np.array([elem >= self.categorical_precision_threshold for elem in prec]).nonzero()[0][0] - 1
-                    self.predictors[col].thresholds[label] = threshold_for_min_prec
+                    for label_idx, label in enumerate(self.predictors[col].classes_):
+                        prec, rec, threshold = precision_recall_curve(df_test[col]==label, probas[:,label_idx], pos_label=True)
+                        prec = prec.tolist(); rec = rec.tolist(); threshold = threshold.tolist()
+                        threshold_for_min_prec = np.array([elem >= self.categorical_precision_threshold for elem in prec]).nonzero()[0][0] - 1
+                        self.predictors[col].thresholds[label] = threshold_for_min_prec
 
             elif col in self.numerical_columns:
                 feature_transform = ColumnTransformer(transformers=[
@@ -328,12 +329,13 @@ class SklearnOutlierDetection(OutlierDetection):
 
         for col in self.categorical_columns + self.numerical_columns:
             if col in self.categorical_columns:
-                y_pred = predictors[col].predict(df_corrupted)
-                y_proba = predictors[col].predict_proba(df_corrupted)
+                if col in predictors.keys():
+                    y_pred = predictors[col].predict(df_corrupted)
+                    y_proba = predictors[col].predict_proba(df_corrupted)
 
-                for label_idx, label in enumerate(predictors[col].classes_):
-                    precision_pred = predictors[col].thresholds[label] <= y_proba[:,label_idx]
-                    outliers = precision_pred & (df_corrupted[col] != y_pred)
+                    for label_idx, label in enumerate(predictors[col].classes_):
+                        precision_pred = predictors[col].thresholds[label] <= y_proba[:,label_idx]
+                        outliers = precision_pred & (df_corrupted[col] != y_pred)
 
             elif col in self.numerical_columns:
                 lower_percentile = predictors[col]['lower'].predict(df_corrupted)

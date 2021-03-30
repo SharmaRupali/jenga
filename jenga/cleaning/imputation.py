@@ -115,34 +115,35 @@ class SklearnImputation(Imputation):
 
             for col in self.categorical_columns + self.numerical_columns:
                 if col in self.categorical_columns:
-                    feature_transform = ColumnTransformer(transformers=[
-                        ('categorical_features', categorical_preprocessing, list(set(self.categorical_columns) - {col})),
-                        ('numeric_features', numeric_preprocessing, self.numerical_columns)
-                    ])
+                    if len(df_train[col].unique()) > 1:
+                        feature_transform = ColumnTransformer(transformers=[
+                            ('categorical_features', categorical_preprocessing, list(set(self.categorical_columns) - {col})),
+                            ('numeric_features', numeric_preprocessing, self.numerical_columns)
+                        ])
 
-                    param_grid = {
-                        'learner__n_estimators': [10, 50, 100, 200],
-                    }
+                        param_grid = {
+                            'learner__n_estimators': [10, 50, 100, 200],
+                        }
 
-                    pipeline = Pipeline([
-                        ('features', feature_transform),
-                        ('learner', GradientBoostingClassifier())
-                    ])
+                        pipeline = Pipeline([
+                            ('features', feature_transform),
+                            ('learner', GradientBoostingClassifier())
+                        ])
 
-                    search = GridSearchCV(pipeline, param_grid, cv=2, verbose=0, n_jobs=-1)
-                    predictors[col] = search.fit(df_train, df_train[col])
+                        search = GridSearchCV(pipeline, param_grid, cv=2, verbose=0, n_jobs=-1)
+                        predictors[col] = search.fit(df_train, df_train[col])
 
-                    print(f'Classifier for col: {col} reached {search.best_score_}')
+                        print(f'Classifier for col: {col} reached {search.best_score_}')
 
-                    ## precision-recall curves for finding the likelihood thresholds for minimal precision
-                    predictors[col].thresholds = {}
-                    probas = predictors[col].predict_proba(df_test)
+                        ## precision-recall curves for finding the likelihood thresholds for minimal precision
+                        predictors[col].thresholds = {}
+                        probas = predictors[col].predict_proba(df_test)
 
-                    for label_idx, label in enumerate(predictors[col].classes_):
-                        prec, rec, threshold = precision_recall_curve(df_test[col]==label, probas[:,label_idx], pos_label=True)
-                        prec = prec.tolist(); rec = rec.tolist(); threshold = threshold.tolist()
-                        threshold_for_min_prec = np.array([elem >= self.categorical_precision_threshold for elem in prec]).nonzero()[0][0] - 1
-                        predictors[col].thresholds[label] = threshold_for_min_prec
+                        for label_idx, label in enumerate(predictors[col].classes_):
+                            prec, rec, threshold = precision_recall_curve(df_test[col]==label, probas[:,label_idx], pos_label=True)
+                            prec = prec.tolist(); rec = rec.tolist(); threshold = threshold.tolist()
+                            threshold_for_min_prec = np.array([elem >= self.categorical_precision_threshold for elem in prec]).nonzero()[0][0] - 1
+                            predictors[col].thresholds[label] = threshold_for_min_prec
 
                 elif col in self.numerical_columns:
                     feature_transform = ColumnTransformer(transformers=[
@@ -169,15 +170,16 @@ class SklearnImputation(Imputation):
 
 
         for col in self.categorical_columns + self.numerical_columns:
-            prior_missing = df_imputed[col].isnull().sum()
+            if col in predictors.keys():
+                prior_missing = df_imputed[col].isnull().sum()
 
-            if prior_missing > 0:
-                if col in self.categorical_columns:
-                    df_imputed.loc[df_imputed[col].isnull(), col] = predictors[col].predict(df_imputed[df_imputed[col].isnull()])
-                elif col in self.numerical_columns:
-                    df_imputed.loc[df_imputed[col].isnull(), col] = predictors[col]['median'].predict(df_imputed[df_imputed[col].isnull()])
+                if prior_missing > 0:
+                    if col in self.categorical_columns:
+                        df_imputed.loc[df_imputed[col].isnull(), col] = predictors[col].predict(df_imputed[df_imputed[col].isnull()])
+                    elif col in self.numerical_columns:
+                        df_imputed.loc[df_imputed[col].isnull(), col] = predictors[col]['median'].predict(df_imputed[df_imputed[col].isnull()])
 
-                print(f'Imputed {prior_missing} values in column {col}')
+                    print(f'Imputed {prior_missing} values in column {col}')
 
         return df_imputed
     
