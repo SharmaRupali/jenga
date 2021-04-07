@@ -59,7 +59,7 @@ class Clean:
 
         print("\nApplying cleaners... \n")
         
-        score_no_cleaning = self.ppp.predict_score_ppp(self.ppp_model, df_corrupted)
+        score_no_cleaning = self.ppp.predict_score_ppp(self.ppp_model, df_test)
         print(f"PPP score no cleaning: {score_no_cleaning}")
 
         summ_clean = {}

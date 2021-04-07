@@ -33,18 +33,26 @@ class Perturbation:
         summary_col_corrupt = defaultdict(list)
 
         for corruption in corruptions: 
-            perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
-            print(f"\tperturbation: {perturbation}")
+            if (len(self.categorical_columns) == 0) & (corruption == CategoricalShift):
+                print("No categorical columns to apply CategoricalShift!")
+                continue;
+            elif (len(self.numerical_columns) == 0) & (corruption in [Scaling, GaussianNoise]):
+                print(f'No numeric columns to apply {corruption}')
+                continue;
+            else:
+                perturbation, col_perturbed = self.get_perturbation(corruption, fraction)
 
-            summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
+                print(f"\tperturbation: {perturbation}")
 
-            ## storing for conservation
-            # maybe we want to apply the same set of perturbations again: useful for the CleanML scenarios
-            # or maybe we want to reuse the columns that were perturbed
-            perturbations.append(perturbation) 
-            cols_perturbed.append(col_perturbed)
+                summary_col_corrupt[tuple(col_perturbed)].append(perturbation) ## saving results for returning individuals too
 
-            df_corrupted = perturbation.transform(df_corrupted)
+                ## storing for conservation
+                # maybe we want to apply the same set of perturbations again: useful for the CleanML scenarios
+                # or maybe we want to reuse the columns that were perturbed
+                perturbations.append(perturbation) 
+                cols_perturbed.append(col_perturbed)
+
+                df_corrupted = perturbation.transform(df_corrupted)
 
         ## cols_perturbed is a list of lists, flattening it here
         cols_perturbed = [col for sublist in cols_perturbed for col in sublist]
