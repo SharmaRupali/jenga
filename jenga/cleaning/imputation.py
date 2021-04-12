@@ -13,6 +13,8 @@ from sklearn.metrics import classification_report, precision_recall_curve
 
 from jenga.cleaning.outlier_detection import SklearnOutlierDetection
 
+import datawig
+
 
 class Imputation:
     
@@ -181,6 +183,31 @@ class SklearnImputation(Imputation):
 
                     print(f'Imputed {prior_missing} values in column {col}')
 
+        return df_imputed
+    
+    
+    def __call__(self, df_train, df_corrupted, predictors):
+        return self.fit_transform(df_train, df_corrupted, predictors)
+
+
+
+class DatawigImputation(Imputation):  
+    
+    def fit_transform(self, df_train, df_corrupted, predictors):
+        df_imputed = df_corrupted.copy()
+
+        for col in self.categorical_columns + self.numerical_columns:
+            output_col = col
+            input_cols = list(set(df_train.columns) - set([output_col]))
+
+            print(f'Fitting model for column: {col}')
+            model = datawig.SimpleImputer(input_cols, output_col, 'imputer_model')
+            model.fit(df_train)
+
+            df_imputed = model.predict(df_imputed)
+            df_imputed[col].fillna(df_imputed[col + '_imputed'], inplace=True)
+            df_imputed = df_imputed[df_corrupted.columns]
+                
         return df_imputed
     
     
