@@ -108,6 +108,15 @@ class PyodGeneralOutlierDetection(OutlierDetection):
     ## outlier detection for categorical columns
     def cat_out_detect(self, df_train, df_corrupted):
         df_outliers = df_corrupted[self.categorical_columns].copy()
+
+        ## Swapping between a categoric and numeric variable messes up the categories of the categoric variable, and there
+        ## are issues while comparing the values inside the same column
+        ## Here, I am finding all the numeric values in the categoric columns, that came after using the SwappedValues corruption
+        ## and repacing them with NaNs, they will later be imputed.
+        for col in self.categorical_columns:
+            idx_to_nan = df_outliers.index[np.where(df_outliers.applymap(np.isreal)[col] == True)]
+            if len(idx_to_nan) != 0:
+                df_outliers.loc[idx_to_nan, col] = np.nan
     
         for col in df_train.columns:
             if col in self.categorical_columns:
