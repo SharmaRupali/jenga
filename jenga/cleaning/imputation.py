@@ -4,10 +4,11 @@ import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.experimental import enable_iterative_imputer ## needed to import the IterativeImputer
+from sklearn.impute import SimpleImputer, IterativeImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, OrdinalEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
+from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor, ExtraTreesRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, precision_recall_curve
 
@@ -209,6 +210,52 @@ class DatawigImputation(Imputation):
             df_imputed = df_imputed[df_corrupted.columns]
                 
         return df_imputed
+    
+    
+    def __call__(self, df_train, df_corrupted, predictors):
+        return self.fit_transform(df_train, df_corrupted, predictors)
+
+
+
+class IterativeImputation(Imputation):
+    
+    def fit_transform(self, df_train, df_corrupted, predictors):
+        df_imputed = df_corrupted.copy()
+
+        imputer = IterativeImputer(ExtraTreesRegressor())
+
+        ## categorical columns
+        encoders = {}
+        for col in self.categorical_columns:
+            self.encode(df_imputed[col], col, encoders)
+
+        imputed_cat = np.round(imputer.fit_transform(df_imputed))
+        imputed_cat_df = pd.DataFrame(imputed_cat, columns=df_imputed.columns)
+
+        for col in self.categorical_columns:
+            df_imputed[col] = encoders[col].inverse_transform(np.array(imputed_cat_df[col]).reshape(-1,1))
+
+
+        ## numerical columns
+        imputed_num = pd.DataFrame(imputer.fit_transform(df_imputed[self.numerical_columns]), index=df_imputed.index, columns=self.numerical_columns)
+
+        for col in self.numerical_columns:
+            df_imputed[col].fillna(imputed_num[col], inplace=True)
+                
+        return df_imputed
+
+
+    def encode(self, df, col, encoders):
+        encoder = OrdinalEncoder()
+
+        nonulls = np.array(df.dropna())
+        impute_reshape = nonulls.reshape(-1,1)
+        impute_ordinal = encoder.fit_transform(impute_reshape)
+        df.loc[df.notnull()] = np.squeeze(impute_ordinal)
+
+        encoders[col] = encoder
+
+        return df
     
     
     def __call__(self, df_train, df_corrupted, predictors):
