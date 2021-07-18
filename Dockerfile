@@ -1,4 +1,4 @@
-FROM python:3.7.7
+FROM python:3.8.5
 
 RUN mkdir src
 WORKDIR src/
@@ -6,6 +6,9 @@ WORKDIR src/
 COPY . .
 
 RUN python -m pip install --upgrade pip
+RUN pip install datawig
+RUN pip install openml
+RUN pip install pyod
 RUN pip install numpy
 RUN pip install matplotlib
 RUN pip install pandas
@@ -19,4 +22,4 @@ RUN pip install autogluon
 RUN pip install mxnet-mkl --pre
 
 
-CMD [ "python", "experimental_setup_final.py" ]
+CMD [ "python3", "experimental_setup_final.py" ]

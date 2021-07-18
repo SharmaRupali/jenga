@@ -38,14 +38,19 @@ DOCKER
 sudo apt install docker.io
 (If error running: https://stackoverflow.com/questions/47854463/docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socke)
 
+check if docker is running: sudo docker info
+start docker: sudo dockerd
+
 Image:
 (build images outside of beuth vpn)
 
 In the same dir as the Dockerfile
-build image: docker image build --file Dockerfile .
-name and tag the image: docker build -t <PATH/NAME> .
-remove image: docker image rmi --force <IMAGE_ID>
-change image/repository name: docker image tag <repo_name>:<tag> <new_name>:<new_tag>
+build image: sudo docker image build --file Dockerfile .
+name and tag the image: sudo docker build -t <PATH/NAME> .
+remove image: sudo docker image rmi --force <IMAGE_ID>
+change image/repository name: sudo docker image tag <repo_name>:<tag> <new_name>:<new_tag>
+list containers: sudo docker ps -a
+sudo docker cp <container_id>:/ <path_to_copy>
 
 
 Registry:
